@@ -1,7 +1,18 @@
 Package: qtlhot
-Version: 1.1.0
-Date: 2020-03-02
-Author: Elias Chaibub Neto <echaibub@hotmail.com> and Brian S Yandell <brian.yandell@wisc.edu>
+Version: 1.2.0
+Date: 2025-12-08
+Authors@R: c(person(given = c("Elias", "Chaibub"),
+                        family = "Neto",
+                        role = "aut",
+                        email = "echaibub@hotmail.com"),
+                 person(given = c("Brian", "S"),
+                        family = "Yandell",
+                        role = "aut",
+                        email = "brian.yandell@wisc.edu"),
+                 person(given = c("Brian", "S."),
+                        family = "Yandell",
+                        role = "cre",
+                        email = "brian.yandell@wisc.edu"))
 Title: Inference for QTL Hotspots
 Description: Functions to infer co-mapping trait hotspots and causal models.
   Chaibub Neto E, Keller MP, Broman AF, Attie AD, Jansen RC, Broman KW, Yandell BS (2012) 
@@ -17,4 +28,4 @@ LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://www.stat.wisc.edu/~yandell/statgen
-RoxygenNote: 6.0.1
+RoxygenNote: 7.3.3
