@@ -1,29 +1,56 @@
-######################################################################
-# hotsize.R
-#
-# Brian S Yandell
-#
-#     This program is free software; you can redistribute it and/or
-#     modify it under the terms of the GNU General Public License,
-#     version 3, as published by the Free Software Foundation.
-# 
-#     This program is distributed in the hope that it will be useful,
-#     but without any warranty; without even the implied warranty of
-#     merchantability or fitness for a particular purpose.  See the GNU
-#     General Public License, version 3, for more details.
-# 
-#     A copy of the GNU General Public License, version 3, is available
-#     at http://www.r-project.org/Licenses/GPL-3
-#
-# Contains: hotsize, hotsize.scanone, hotsize.highlod,
-#           print.hotsize, summary.hotsize, plot.hotsize
-######################################################################
+#' Hotspot size routines.
+#' 
+#' Determine hotspot sizes and display. Use individual threshold and quantile
+#' thresholds as provided.
+#' 
+#' 
+#' @aliases hotsize hotsize.scanone hotsize.highlod print.hotsize
+#' summary.hotsize plot.hotsize
+#' @param hotobject object of class \code{\link[qtl]{scanone}} or
+#' \code{\link{highlod}}
+#' @param lod.thr LOD threshold
+#' @param drop.lod LOD drop from max to keep for support intervals
+#' @param window window width in cM for smoothing hotspot size; not used if
+#' \code{0} or \code{NULL}
+#' @param quant.level vector of LOD levels for 1 up to
+#' \code{length(quant.level)} size hotspots
+#' @param x,object object of class \code{hotsize}
+#' @param ylab label for vertical plot axis
+#' @param quant.axis hotspot sizes for quantile axis (vertical on right side of
+#' plot)
+#' @param col col of hotspot size, smoothed hotspot size, and sliding hotspot
+#' size
+#' @param by.chr separate plot by chromosome if \code{TRUE}
+#' @param maps if not \code{NULL}, list of objects of class \code{map} to use
+#' for rugs on top and bottom of plot
+#' @param title title for plot
+#' @param \dots arguments passed along to scanone methods
+#' @return \code{hotsize} methods return an object of class \code{hotsize},
+#' which is essentially an object of class \code{\link[qtl]{summary.scanone}}
+#' with additional attributes for \code{lod.thr}, \code{window}, and
+#' \code{quant.level}.
+#' @author Brian S Yandell and Elias Chaibub Neto
+#' @seealso \code{\link{highlod}}, \code{\link{hotperm}}
+#' @keywords utilities
+#' @examples
+#' 
+#' example(highlod)
+#' hots1 <- hotsize(high1)
+#' summary(hots1)
+#' plot(hots1)
+#' 
+#' @export
 hotsize <- function(hotobject, ...) UseMethod("hotsize")
-
+#' @method hotsize scanone
+#' @rdname hotsize
+#' @export
 hotsize.scanone <- function(hotobject, lod.thr = NULL, drop.lod = 1.5, ...)
 {
   hotsize(highlod(hotobject, lod.thr, drop.lod), lod.thr, ...)
 }
+#' @method hotsize highlod
+#' @rdname hotsize
+#' @export
 hotsize.highlod <- function(hotobject, lod.thr = NULL, window = NULL, quant.level = NULL, ...)
 {
   if(length(lod.thr) > 1)
@@ -99,7 +126,13 @@ hotsize.highlod <- function(hotobject, lod.thr = NULL, window = NULL, quant.leve
   scan
 }
 #############################################################################################
+#' @method print hotsize
+#' @rdname hotsize
+#' @export
 print.hotsize <- function(x, ...) print(summary(x, ...))
+#' @method summary hotsize
+#' @rdname hotsize
+#' @export
 summary.hotsize <- function(object, ...)
 {
   
@@ -126,6 +159,9 @@ summary.hotsize <- function(object, ...)
   NextMethod(object, format = format, ...)
 }    
 #############################################################################################
+#' @method plot hotsize
+#' @rdname hotsize
+#' @export
 plot.hotsize <- function(x, ylab = "counts", quant.axis = pretty(x$max.N),
                          col = c("black","red","blue"), by.chr = FALSE, maps = NULL,
                          title = "", ...)

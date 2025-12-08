@@ -1,43 +1,84 @@
-######################################################################
-# westwu.R
-#
-# Brian S Yandell
-#
-#     This program is free software; you can redistribute it and/or
-#     modify it under the terms of the GNU General Public License,
-#     version 3, as published by the Free Software Foundation.
-# 
-#     This program is distributed in the hope that it will be useful,
-#     but without any warranty; without even the implied warranty of
-#     merchantability or fitness for a particular purpose.  See the GNU
-#     General Public License, version 3, for more details.
-# 
-#     A copy of the GNU General Public License, version 3, is available
-#     at http://www.r-project.org/Licenses/GPL-3
-#
-# Contains: ww.perm, summary.ww.perm, print.ww.perm
-######################################################################
-
-## This function computes the West/Wu permutation thresholds.
-## The output is a nlod (number of LOD thresholds) by nalpha (number of 
-## significance levels) matrix, where each entry shows the hotspot size 
-## significance threshold of the West/Wu approach. Note we have two "alphas" 
-## here, one for the QTL mapping (the LOD thresholds) and one for the 
-## permutation significance (alpha levels of lod.thrs).
-##
-## Note that I separated the original ww.permutations() into a piece that do the 
-## actual permutations [ww.perm.matrix() function] and a piece that summarizes it
-## [the ww.summary() function] in the same way you did with the NL.N.permutations()
-## function.  
 ## 
+#' Conduct West-Wu (Q) permutation tests
+#' 
+#' This function computes the West/Wu permutation thresholds.
+#' The output is a nlod (number of LOD thresholds) by nalpha (number of 
+#' significance levels) matrix, where each entry shows the hotspot size 
+#' significance threshold of the West/Wu approach. Note we have two "alphas" 
+#' here, one for the QTL mapping (the LOD thresholds) and one for the 
+#' permutation significance (alpha levels of lod.thrs).
+#' 
+#' Note that I separated the original ww.permutations() into a piece that do the 
+#' actual permutations [ww.perm.matrix() function] and a piece that summarizes it
+#' [the ww.summary() function] in the same way you did with the NL.N.permutations()
+#' function.  
+#' 
+#' Perform permutation tests to assess the statistical significance of the
+#' hotspots detected using the West-Wu \code{Q}-method permutations. The
+#' \code{ww.perm} function implements the \code{Q}-method's permutation scheme
+#' (see the Method's section of Chaibub Neto et a. 2012, for details). The
+#' \code{n.perm} parameter specifies the number of simulations. Here we set it
+#' to 100 in order to save time. In practice, we recommend at least 1,000
+#' permutations. The function's output is a matrix with 100 rows representing
+#' the permutations, and 10 columns representing the QTL mapping thresholds.
+#' Each entry \code{ij}, represents the maximum number of significant linkages
+#' across the entire genome detected at permutation \code{i}, using the LOD
+#' threshold \code{j}. The \code{ww.summary} function computes the Q-method's
+#' hotspot size permutation thresholds, that is, the \code{1-alpha} quantiles
+#' for each one of the QTL mapping LOD thrsholds in \code{lod.thrs}. For
+#' instance, the entry at row 10 and column 1 of the \code{Q.1.thr} matrix
+#' tells us that the 99\% percentile of the permutation distribution of genome
+#' wide maximum hotspot size based on a QTL mapping threshold of 2.11 is 27.00.
+#' In other words, any hotspot greater than 27 is considered statistically
+#' significant at a 0.01 significance level when QTL mapping is done using a
+#' 2.11 LOD threshold.  In general, we are often interested in using the same
+#' error rates for the QTL mapping and hotspot analysis. That is, if we adopt a
+#' QTL mapping threshold that controls GWER at a 1\% level (in our case, 3.11)
+#' we will also want to consider \code{alpha = 0.01} for the hotspot analysis,
+#' leading to a hotspot threshold of 12.00. Therefore, we are usually more
+#' interested in the diagonal of \code{Q.1.thr}. We adopted a GWER of 5\%, and
+#' the corresponding \code{Q}-method's permutation threshold is 18. According
+#' to this threshold, all hotspots are significant.
+#' 
+#' @aliases ww.perm summary.ww.perm print.ww.perm
+#' @param highobj object of class \code{\link{highlod}}
+#' @param n.perm number of permutations
+#' @param lod.thrs vector of LOD thresholds
+#' @param alpha.levels vector of significance levels
+#' @param x,object object of class \code{ww.perm}
+#' @param \dots ignored
+#' @param verbose verbose output if \code{TRUE}
+#' @author Elias Chaibub Neto and Brian S Yandell
+#' @keywords utilities
+#' @examples
+#' 
+#' \dontrun{
+#' ## All unspecified objects come from vignette qtlhot.
+#' set.seed(12345)
+#' Q.1 <- ww.perm(high1, n.perm = 100, lod.thrs, alphas)
+#' Q.1.thr <- summary(Q.1, alphas)
+#' Q.1.thr
+#' diag(Q.1.thr)
+#' 
+#' set.seed(12345)
+#' Q.2 <- ww.perm(high2, 100, lod.thrs, alphas)
+#' Q.2.thr <- summary(Q.2, alphas)
+#' }
+#' 
 ww.perm <- function(highobj, n.perm, lod.thrs, alpha.levels, verbose = FALSE)
   ww.perm.highlod(highobj, n.perm, lod.thrs, alpha.levels, verbose)
 ####################################################################################
+#' @method print ww.perm
+#' @rdname ww.perm
+#' @export
 print.ww.perm <- function(x, ...) print(summary(x, ...))
+#' @method summary ww.perm
+#' @rdname ww.perm
+#' @export
 summary.ww.perm <- function(object, alpha.levels = attr(object, "alpha.levels"), ...)
 {
   nalpha <- length(alpha.levels)
-  ww.thrs <- t(apply(object, 2, quantile, 1 - alpha.levels))
+  ww.thrs <- t(apply(object, 2, quantile_highlod, 1 - alpha.levels))
   dimnames(ww.thrs) <- list(dimnames(object)[[2]], as.character(alpha.levels))
   ww.thrs
 }

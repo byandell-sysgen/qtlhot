@@ -55,7 +55,7 @@ mySimulations <- function(
       dom.eff1 <- stats::runif(1,dom.eff1.range[1],dom.eff1.range[2])
       sig2.1 <- stats::runif(1,sig2.1.range[1],sig2.1.range[2])
       sig2.2 <- stats::runif(1,sig2.2.range[1],sig2.2.range[2])
-      Cross <- qtl::sim.cross.1(n.ind, mu, beta21, add.eff1, dom.eff1, sig2.1, 
+      Cross <- qtl::sim.cross(n.ind, mu, beta21, add.eff1, dom.eff1, sig2.1, 
         sig2.2, eq.spacing, cross.type, normalize)
       Cross <- qtl::calc.genoprob(Cross, step=2)
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
@@ -100,7 +100,7 @@ mySimulations <- function(
       sig2.1 <- stats::runif(1,sig2.1.range[1],sig2.1.range[2])
       sig2.2 <- stats::runif(1,sig2.2.range[1],sig2.2.range[2])
       sig2.h <- stats::runif(1,sig2.h.range[1],sig2.h.range[2])
-      Cross <- qtl::sim.cross.2(n.ind, mu, beta21, beta1h, beta2h, add.eff1, 
+      Cross <- qtl::sim.cross(n.ind, mu, beta21, beta1h, beta2h, add.eff1, 
         dom.eff1, sig2.1, sig2.2, sig2.h, eq.spacing, cross.type, normalize)
       Cross <- qtl::calc.genoprob(Cross, step=2)
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
@@ -144,7 +144,7 @@ mySimulations <- function(
       dom.eff2 <- stats::runif(1,dom.eff2.range[1],dom.eff2.range[2])
       sig2.1 <- stats::runif(1,sig2.1.range[1],sig2.1.range[2])
       sig2.2 <- stats::runif(1,sig2.2.range[1],sig2.2.range[2])
-      Cross <- qtl::sim.cross.3(n.ind, mu, beta21, add.eff1, dom.eff1, add.eff2, 
+      Cross <- qtl::sim.cross(n.ind, mu, beta21, add.eff1, dom.eff1, add.eff2, 
         dom.eff2, sig2.1, sig2.2, eq.spacing, cross.type, normalize)
       Cross <- qtl::calc.genoprob(Cross, step=2)
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
@@ -187,7 +187,7 @@ mySimulations <- function(
       dom.eff2 <- stats::runif(1,dom.eff2.range[1],dom.eff2.range[2])
       sig2.1 <- stats::runif(1,sig2.1.range[1],sig2.1.range[2])
       sig2.2 <- stats::runif(1,sig2.2.range[1],sig2.2.range[2])
-      Cross <- qtl::sim.cross.4(n.ind, mu, add.eff1, dom.eff1, add.eff2, 
+      Cross <- qtl::sim.cross(n.ind, mu, add.eff1, dom.eff1, add.eff2, 
         dom.eff2, sig2.1, sig2.2, eq.spacing, cross.type, normalize)
       Cross <- qtl::calc.genoprob(Cross, step=2)
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
@@ -233,7 +233,7 @@ mySimulations <- function(
       sig2.1 <- stats::runif(1,sig2.1.range[1],sig2.1.range[2])
       sig2.2 <- stats::runif(1,sig2.2.range[1],sig2.2.range[2])
       sig2.h <- stats::runif(1,sig2.h.range[1],sig2.h.range[2])
-      Cross <- qtl::sim.cross.5(n.ind, mu, add.eff1, dom.eff1, add.eff2, dom.eff2, 
+      Cross <- qtl::sim.cross(n.ind, mu, add.eff1, dom.eff1, add.eff2, dom.eff2, 
         beta1h, beta2h, sig2.1, sig2.2, sig2.h, eq.spacing, cross.type,
         normalize)
       Cross <- qtl::calc.genoprob(Cross, step=2)
@@ -282,6 +282,44 @@ mySimulations <- function(
        pval.cit=pval.cit)
 }
 #########################################################################
+
+
+#' Simulate Cross for Causal Tests
+#' 
+#' Creates cross with certain pattern of dependence across phenotypes.
+#' 
+#' 
+#' @aliases SimCrossCausal SimCrossIndep CMSTCross
+#' @param n.ind number of individuals to simulate
+#' @param len vector specifying the chromosome lengths (in cM)
+#' @param n.mar vector specifying the number of markers per chromosome
+#' @param beta causal effect (slope) of first phenotype on others
+#' @param add.eff,add.eff.1,add.eff.h additive genetic effect
+#' @param dom.eff,dom.eff.1,dom.eff.h dominance genetic effect
+#' @param sig2.1 residual variance for first phenotype
+#' @param sig2.2,sig2.h residual variance for all other phenotypes
+#' @param eq.spacing if \code{TRUE}, markers will be equally spaced
+#' @param cross.type type of cross (\code{bc} and \code{f2} for now)
+#' @param normalize normalize values if \code{TRUE}
+#' @references Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,
+#' Yandell BS, Causal model selection hypothesis tests in systems genetics.
+#' Genetics (in review).
+#' @keywords utilities
+#' @examples
+#' 
+#' set.seed(987654321)
+#' CMSTCross <- SimCrossCausal(n.ind = 100, 
+#'   len = rep(100, 3), n.mar = 101,
+#'   beta = rep(0.5, 2), add.eff = 1, dom.eff = 0, 
+#'   sig2.1 = 0.4, sig2.2 = 0.1, eq.spacing = FALSE, 
+#'   cross.type = "bc", normalize = TRUE)
+#' CMSTCross <- calc.genoprob(CMSTCross, step = 1)
+#' \dontrun{
+#' save(CMSTCross, file = "CMSTCross.RData", compress = TRUE)
+#' }
+#' 
+#' @export
+#' @importFrom qtl calc.genoprob find.marker pull.geno sim.cross sim.map
 SimCrossCausal <- function(n.ind, len, n.mar, beta, add.eff, dom.eff, 
                            sig2.1 = 1, sig2.2 = 1, eq.spacing = FALSE, 
                            cross.type = c("bc", "f2"), normalize = FALSE) {

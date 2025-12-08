@@ -1,5 +1,5 @@
 ##############################################################################
-plot.cit <- function(sim.out, alpha, my.cex, main="")
+plot_cit <- function(sim.out, alpha, my.cex, main="")
 {
   graphics::par(mar=c(5,4.5,4,4)+0.1)
   r2s <- sim.out$R2s
@@ -23,7 +23,7 @@ plot.cit <- function(sim.out, alpha, my.cex, main="")
     graphics::points(r2s[i,1],r2s[i,2],col=mycols[aux[i]],cex=my.cex,lwd=2)
 }
 ##############################################################################
-plot.bic.aic <- function(sim.out, my.cex, main="", penalty="BIC")
+plot_bic.aic <- function(sim.out, my.cex, main="", penalty="BIC")
 {
   graphics::par(mar=c(5,4.5,4,4)+0.1)
   r2s <- sim.out$R2s
@@ -51,7 +51,7 @@ plot.bic.aic <- function(sim.out, my.cex, main="", penalty="BIC")
     graphics::points(r2s[i,1],r2s[i,2],col=mycols[aux[i]],cex=my.cex,lwd=2)
 }
 ##############################################################################
-plot.par.cmst.joint <- function(sim.out, alpha, my.cex, 
+plot_par.cmst.joint <- function(sim.out, alpha, my.cex, 
   main="", penalty=c("BIC","AIC"))
 {
   graphics::par(mar=c(5,4.5,4,4)+0.1)
@@ -80,7 +80,7 @@ plot.par.cmst.joint <- function(sim.out, alpha, my.cex,
     graphics::points(r2s[i,1],r2s[i,2],col=mycols[aux[i]],cex=my.cex,lwd=2)
 }
 ##############################################################################
-plot.par.cmst <- function(sim.out, alpha, my.cex, 
+plot_par.cmst <- function(sim.out, alpha, my.cex, 
   main="", penalty=c("BIC","AIC"))
 {
   graphics::par(mar=c(5,4.5,4,4)+0.1)
@@ -109,7 +109,7 @@ plot.par.cmst <- function(sim.out, alpha, my.cex,
     graphics::points(r2s[i,1],r2s[i,2],col=mycols[aux[i]],cex=my.cex,lwd=2)
 }
 ##############################################################################
-plot.non.par.cmst <- function(sim.out, alpha, my.cex, 
+plot_non.par.cmst <- function(sim.out, alpha, my.cex, 
   main="", penalty=c("BIC","AIC"))
 {
   graphics::par(mar=c(5,4.5,4,4)+0.1)

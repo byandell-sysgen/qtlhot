@@ -1,35 +1,62 @@
-######################################################################
-# perm.R
-#
-# Brian S Yandell
-#
-#     This program is free software; you can redistribute it and/or
-#     modify it under the terms of the GNU General Public License,
-#     version 3, as published by the Free Software Foundation.
-# 
-#     This program is distributed in the hope that it will be useful,
-#     but without any warranty; without even the implied warranty of
-#     merchantability or fitness for a particular purpose.  See the GNU
-#     General Public License, version 3, for more details.
-# 
-#     A copy of the GNU General Public License, version 3, is available
-#     at http://www.r-project.org/Licenses/GPL-3
-#
-# Contains: hotperm,summary.hotperm,print.hotperm
-######################################################################
-
-## This set of functions compute the permutation LOD thresholds for the NL-method
-## and the permutation hotspot size thresholds for the N-method. The output
-## is a list with two elements: the NL- and the N-method's threshold matrices.
-## The NL-method output is a nN (number of spurious hotspot sizes) by nalpha
-## (number of significance levels) threshold matrix. Note that for the
-## NL-method we have a single "alpha" since we use the same significance level
-## for QTL mapping and permutation significance.
-## The N-method output is a nlod (number of LOD thresholds) by nalpha (number
-## of significance levels) threshold matrix. Note that here we have two
-## "alphas", one for the QTL mapping (the LOD thresholds) and one for the 
-## permutation significance (alpha levels). 
-##
+#' Conduct NL and N permutation tests
+#' 
+#' This set of functions compute the permutation LOD thresholds for the NL-method
+#' and the permutation hotspot size thresholds for the N-method. The output
+#' is a list with two elements: the NL- and the N-method's threshold matrices.
+#' The NL-method output is a nN (number of spurious hotspot sizes) by nalpha
+#' (number of significance levels) threshold matrix. Note that for the
+#' NL-method we have a single "alpha" since we use the same significance level
+#' for QTL mapping and permutation significance.
+#' The N-method output is a nlod (number of LOD thresholds) by nalpha (number
+#' of significance levels) threshold matrix. Note that here we have two
+#' "alphas", one for the QTL mapping (the LOD thresholds) and one for the 
+#' permutation significance (alpha levels). 
+#' 
+#' @param cross object of class \code{cross}
+#' @param n.quant maximum of \code{s.quant}
+#' @param n.perm number of permutations
+#' @param lod.thrs vector of LOD thresholds
+#' @param alpha.levels vector of significance levels
+#' @param quant.levels quantile levels, as number of traits, to show in
+#' summary; default is 1, 2, 5, 10, \dots up to maximum recorded
+#' @param drop.lod LOD drop amount for support intervals
+#' @param window window size for smoothed hotspot size
+#' @param verbose verbose output if \code{TRUE}
+#' @param init.seed initial seed for pseudo-random number generation
+#' @param x,object object of class \code{hotperm} or \code{summary.hotperm}
+#' @param probs probability levels for quantiles (\code{1-probs} if all > 0.5);
+#' default is \code{alpha.levels}
+#' @param lod.thr restrict to values above this if not \code{NULL}
+#' @param addcovar additive covariates as vector or matrix; see
+#' \code{\link[qtl]{scanone}}
+#' @param intcovar interactive covariates as vector or matrix; see
+#' \code{\link[qtl]{scanone}}
+#' @param \dots arguments passed along to \code{scanone}
+#' @author Elias Chaibub Neto and Brian S Yandell
+#' @keywords utilities
+#' @examples
+#' 
+#' example(include.hotspots)
+#' set.seed(123)
+#' pt <- scanone(ncross1, method = "hk", n.perm = 1000)
+#' alphas <- seq(0.01, 0.10, by=0.01)
+#' lod.thrs <- summary(pt, alphas)
+#' \dontrun{
+#' ## This takes awhile, so we save the object.
+#' set.seed(12345)
+#' hotperm1 <- hotperm(cross = cross1,
+#'                     n.quant = 300,
+#'                     n.perm = 100,
+#'                     lod.thrs = lod.thrs,
+#'                     alpha.levels = alphas,
+#'                     drop.lod = 1.5,
+#'                     verbose = FALSE)
+#' save(hotperm1, file = "hotperm1.RData", compress = TRUE)
+#' }
+#' summary(hotperm1)
+#' 
+#' @export
+#' @importFrom qtl nind nphe scanone 
 hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1.5,
                     window = NULL, verbose = FALSE, init.seed = 0,
                     addcovar = NULL, intcovar = NULL, ...) 
@@ -91,7 +118,7 @@ hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1
     ## rows indexes the permutations
     ## columns indexes the s.quant quantiles
     mycat("quantile...", verbose, last = "")
-    tmp <- quantile(highs, n.quant = n.quant)
+    tmp <- quantile_highlod(highs, n.quant = n.quant)
     if(length(tmp))
       max.lod.quant[i, seq(tmp)] <- tmp
   }
@@ -105,10 +132,16 @@ hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1
   
   out
 }
+#' @method print hotperm
+#' @rdname hotperm
+#' @export
 print.hotperm <- function(x, ...) print(summary(x, ...))
+#' @method summary hotperm
+#' @rdname hotperm
+#' @export
 summary.hotperm <- function(object, quant.levels, ...)
 {
-  out <- quantile(object, ...)
+  out <- quantile_hotperm(object, ...)
 
   attr(out, "window") <- attr(object, "window")
 
@@ -123,12 +156,16 @@ summary.hotperm <- function(object, quant.levels, ...)
   quant.levels <- quant.levels[quant.levels <= n.quant]
   if(max(quant.levels) < n.quant)
     quant.levels <- c(quant.levels, n.quant)
-  out$max.lod.quant <- t(apply(object$max.lod.quant[, quant.levels, drop = FALSE],
-                               2, quantile, probs = alpha.levels, na.rm = TRUE))
+  out$max.lod.quant <- 
+    t(apply(object$max.lod.quant[, quant.levels, drop = FALSE],
+            2, stats::quantile, probs = alpha.levels, na.rm = TRUE))
   
   class(out) <- c("summary.hotperm", class(out))
   out
 }
+#' @method print summary.hotperm
+#' @rdname hotperm
+#' @export
 print.summary.hotperm <- function(x, ...)
 {
   cat("max.N: hotspot threshold by single-trait LOD threshold and significance level\n")
@@ -143,6 +180,9 @@ print.summary.hotperm <- function(x, ...)
   print(round(x$max.lod.quant, 2))
   invisible()
 }
+#' @method plot hotperm
+#' @rdname hotperm
+#' @export
 plot.hotperm <- function(x, probs = seq(0.9, 0.99, by = 0.01), level = 0.95, ...)
 {
   lod.thrs <- attr(x, "lod.thrs")
@@ -155,13 +195,13 @@ plot.hotperm <- function(x, probs = seq(0.9, 0.99, by = 0.01), level = 0.95, ...
     level <- 1 - level
   
   lod.thr <- lod.thrs[which.min(abs(level - alpha.levels))[1]]
-  out <- quantile(x, probs, lod.thr = lod.thr, ...)
+  out <- quantile_hotperm(x, probs, lod.thr = lod.thr, ...)
 
   wh.thr <- which.min(abs(lod.thr - lod.thrs))[1]
   wh.level <- which.min(abs(level - probs))[1]
   
-  tmp.plot <- function(x.vals, quant, x.crit, probs, level, wh.thr, is.quantile = FALSE, main = "",
-                       add.level = FALSE)
+  tmp.plot <- function(x.vals, quant, x.crit, probs, level, wh.thr,
+                       is.quantile = FALSE, main = "", add.level = FALSE)
   {
     n.probs <- length(probs)
     wh.level <- which.min(abs(level - probs))[1]

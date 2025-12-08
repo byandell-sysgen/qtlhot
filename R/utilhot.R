@@ -18,6 +18,7 @@
 # Contains: lininterp, findpeaks
 ######################################################################
 
+#' @importFrom qtl find.pheno nind
 ## see ~/p/private/diabetes1/diabetes10/scan.perm/func1.R
 lininterp <- function(x, y, xnew, ynew)
 {

@@ -1,24 +1,6 @@
-######################################################################
-# max.R
-#
-# Elias Chaibub Neto
-# Brian S Yandell
-#
-#     This program is free software; you can redistribute it and/or
-#     modify it under the terms of the GNU General Public License,
-#     version 3, as published by the Free Software Foundation.
-# 
-#     This program is distributed in the hope that it will be useful,
-#     but without any warranty; without even the implied warranty of
-#     merchantability or fitness for a particular purpose.  See the GNU
-#     General Public License, version 3, for more details.
-# 
-#     A copy of the GNU General Public License, version 3, is available
-#     at http://www.r-project.org/Licenses/GPL-3
-#
-# Contains: max.hotsize, max.highlod, quantile.highlod, get.tails
-######################################################################
-
+#' @method max hotsize
+#' @rdname hotsize
+#' @export
 max.hotsize <- function(x, ...)
 {
   if(is.null(x))
@@ -40,6 +22,9 @@ max.hotsize <- function(x, ...)
   }
   out
 }
+#' @method max highlod
+#' @rdname highlod
+#' @export
 max.highlod <- function(x, lod.thr = NULL, window = NULL, quant.level = NULL, ...)
 {
   if(is.null(window))
@@ -76,7 +61,7 @@ max.highlod <- function(x, lod.thr = NULL, window = NULL, quant.level = NULL, ..
     mymax(hotsize(x, lod.thr, window, quant.level, ...), window, quant.level)
 }
 ################################################################################
-quantile.highlod <- function(x, probs = NULL, lod.thr = NULL, n.quant, n.pheno,
+quantile_highlod <- function(x, probs = NULL, lod.thr = NULL, n.quant, n.pheno,
                              max.quantile = TRUE, ...)
 {
   highlod <- highlod.thr(x, lod.thr)
@@ -134,7 +119,7 @@ get.tails <- function(highs, n.quant = 2000, s.quant = seq(n.quant))
   out
 }
 #####################################################################
-quantile.hotperm <- function(x, probs = attr(x, "alpha.levels"),
+quantile_hotperm <- function(x, probs = attr(x, "alpha.levels"),
                              ..., lod.thr = NULL)
 {
   if(max(probs) <= 0.5)
@@ -142,7 +127,7 @@ quantile.hotperm <- function(x, probs = attr(x, "alpha.levels"),
   
   myquant <- function(x, probs) {
     x[is.na(x)] <- 0
-    out <- as.matrix(apply(x, 2, quantile, probs = probs))
+    out <- as.matrix(apply(x, 2, stats::quantile, probs = probs))
     if(length(probs) > 1)
       out <- t(out)
     out

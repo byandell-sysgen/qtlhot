@@ -32,6 +32,46 @@
 ## http://www.stat.wisc.edu/~yandell/sysgen/qtlhot/condor
 ##
 ####################################################################################
+
+
+#' Code for parallelizing R/qtlhot.
+#' 
+#' Code for parallelizing R/qtlhot. See installed parallel directory for proper
+#' use. There is apparently an S3 parallel method, so doc has to be as shown
+#' below, even though it is called as parallel.qtlhot.
+#' 
+#' 
+#' @aliases parallel.qtlhot qtlhot.phase0 big.phase0
+#' @param x phase of parallel processing (1,2,3)
+#' @param data index for parallel processing (1,2,...)
+#' @param \dots additional arguments passed along
+#' @param dirpath directory path as character string
+#' @param init.seed initial seed for pseudorandom number generation
+#' @param len vector of chromosome lengths for simulated map
+#' @param n.mar number of markers for simulated map
+#' @param n.ind number of individuals for simulated cross
+#' @param n.phe number of phenotypes for simulated phenotypes
+#' @param latent.eff size of latent effect
+#' @param res.var magnitude of residual variance
+#' @param lod.thrs vector of LOD thresholds to examine
+#' @param cross object of class \code{cross}
+#' @param trait.file character string name of trait file
+#' @param trait.matrix character string name of trait matrix
+#' @param droptrait.names vector of character strings for traits to drop (none
+#' if \code{NULL})
+#' @param keeptrait.names vector of character strings for traits to keep (keep
+#' all if \code{NULL})
+#' @param sex character string name of phenotype for sex
+#' @param trait.index vector of character strings for trait names
+#' @param batch.effect character string for batch effect (none if \code{NULL})
+#' @param size.set maximum size of set of traits to scan at one time
+#' @param offset offset for name of trait RData files
+#' @param subset.sex string of sex to subset on (both sexes if \code{NULL})
+#' @param verbose verbose output if \code{TRUE}
+#' @author Brian S Yandell and Elias Chaibub Neto
+#' @seealso \code{\link[qtl]{read.cross}}
+#' @keywords utilities
+#' @importFrom qtl calc.genoprob nind nphe pull.map sim.cross sim.map
 parallel.qtlhot <- function(x, data = 1, ..., dirpath = ".")
 {
   switch(x,

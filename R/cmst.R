@@ -1,5 +1,71 @@
 ## Modify to use names element of highlod object?
 ## Fix so call with length(pheno2) == 1 and > 1 give same results; see JoinTestOutputs.
+
+
+#' Perform CMST Tests on cross object
+#' 
+#' Performs 6 separate CMST tests (3 versions, 2 penalties).
+#' 
+#' Explain method and penalty here.
+#' 
+#' @aliases CMSTtests CMSTtestsList
+#' @param cross object of class \code{cross}
+#' @param pheno1 first phenotype column number or character string name
+#' @param pheno2 second phenotype column number or character string name; if
+#' more than one, then all phenotypes will be tested against \code{pheno1}
+#' @param Q.chr QTL chromosome (number or label)
+#' @param Q.pos QTL position in cM
+#' @param addcov1,addcov2 additive covariates for first and second phenotype,
+#' respectively
+#' @param intcov1,intcov2 interactive covariates for first and second
+#' phenotype, respectively
+#' @param method test method; see details
+#' @param penalty type of penalty; see details
+#' @param verbose verbose printout if \code{TRUE}
+#' @seealso \code{\link{CMSTCross}}, \code{\link{PrecTpFpMatrix}},
+#' \code{\link{FitAllTests}}
+#' @references Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,
+#' Yandell BS, Causal model selection hypothesis tests in systems genetics.
+#' Genetics (in review).
+#' @keywords utilities
+#' @examples
+#' 
+#' data(CMSTCross)
+#' nms <- names(CMSTCross$pheno)
+#' out1 <- CMSTtests(CMSTCross, 
+#'                   pheno1 = nms[1], 
+#'                   pheno2 = nms[2],
+#'                   Q.chr = 1,
+#'                   Q.pos = 55,
+#'                   addcov1 = NULL, 
+#'                   addcov2 = NULL, 
+#'                   intcov1 = NULL, 
+#'                   intcov2 = NULL, 
+#'                   method = "all",
+#'                   penalty = "both")
+#' out1[1:6]
+#' out1[7]
+#' out1[8:12]
+#' out1[13:17]
+#' ## list of phenotypes
+#' out2 <- CMSTtests(CMSTCross, 
+#'                   pheno1 = nms[1], 
+#'                   pheno2 = nms[-1],
+#'                   Q.chr = 1,
+#'                   Q.pos = 55,
+#'                   addcov1 = NULL, 
+#'                   addcov2 = NULL, 
+#'                   intcov1 = NULL, 
+#'                   intcov2 = NULL, 
+#'                   method = "par",
+#'                   penalty = "bic")
+#' out2
+#' 
+#' @export
+#' @importFrom corpcor is.positive.definite make.positive.definite
+#' @importFrom mnormt pmnorm
+#' @importFrom qtl find.marker find.pseudomarker lodint makeqtl nind pull.geno
+#'             scanone
 CMSTtests <- function(cross, 
                       pheno1, 
                       pheno2,
@@ -602,6 +668,7 @@ CMSTtests <- function(cross,
   out
 }
 ##############################################################################
+#' @export
 CMSTtestsList <- function(cross, 
                           pheno1, 
                           pheno2,
@@ -1061,6 +1128,45 @@ CitTests <- function(LL, GG, TT)
   c(pvalc, pvalr)
 }
 ##############################################################################
+
+
+#' Get common QTLs for phenotypes
+#' 
+#' Perform joint QTL mapping for phenotypes with marginal LOD peak positions
+#' higher than LOD threshold and within set distance of each other
+#' 
+#' 
+#' @param cross object of class \code{cross}
+#' @param pheno1 first phenotype column number or character string name
+#' @param pheno2 second phenotype column number or character string name; if
+#' more than one, then all phenotypes will be tested against \code{pheno1}
+#' @param thr LOD threshold
+#' @param peak.dist maximal peak distance to be considered the same peak (in
+#' cM)
+#' @param addcov1,addcov2 additive covariates for first and second phenotype,
+#' respectively
+#' @param intcov1,intcov2 interactive covariates for first and second
+#' phenotype, respectively
+#' @seealso \code{\link{CMSTCross}}
+#' @references Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,
+#' Yandell BS, Causal model selection hypothesis tests in systems genetics.
+#' Genetics (in review).
+#' @keywords utilities
+#' @examples
+#' 
+#' data(CMSTCross)
+#' commqtls <- GetCommonQtls(CMSTCross, 
+#'                           pheno1 = "y1", 
+#'                           pheno2 = "y3",
+#'                           thr = 3,
+#'                           peak.dist = 5,
+#'                           addcov1 = NULL, 
+#'                           addcov2 = NULL, 
+#'                           intcov1 = NULL, 
+#'                           intcov2 = NULL)
+#' commqtls
+#' 
+#' @export
 GetCommonQtls <- function(cross, 
                           pheno1, 
                           pheno2,
@@ -1474,6 +1580,7 @@ GetCis <- function(x, window = 10) {
   list(cis.reg = xx, cis.index = index) 
 }
 ##############################################################################
+#' @export
 GetCisCandReg <- function(highobj, cand.reg, lod.thr = NULL)
 {
   cand.names <- as.character(cand.reg[, 1])
@@ -1604,6 +1711,85 @@ PerformanceSummariesKo <- function(alpha, nms, val.targets, all.orfs,
   list(overall.1, overall.2, tar)
 }
 ##############################################################################
+
+
+#' Determine false positive and true positive rates for known targets.
+#' 
+#' Determine how well different tests do to predict candidates of regulation.
+#' 
+#' \code{FitAllTests} invokes 7 tests. The hidden routine \code{CitTests} is
+#' invoked by call to \code{FitAllTests}; this is hidden because we do not
+#' recommend its use.
+#' 
+#' \code{JoinTestOutputs} joins results of \code{\link{FitAllTests}}, either
+#' from a list \code{tests} or from a collection of files prefixed by
+#' \code{file}. The joined \code{tests} from \code{JoinTestOutputs} are
+#' summarized with \code{PrecTpFpMatrix} using the biologically validated true
+#' positives, false positives and precision, for the inferred causal relations.
+#' We define a true positive as a statistically significant causal relation
+#' between a gene and a putative target gene when the putative target gene
+#' belongs to the known signature of the gene. Similarly, we define a false
+#' positive as a statistically significant causal relation between a gene and a
+#' putative target gene when the target gene does not belong to the signature.
+#' (For the AIC and BIC methods that do not provide a p-value measuring the
+#' significance of the causal call, we simply use the detected causal relations
+#' in the computation of true and false positives). The validated precision is
+#' computed as the ratio of true positives by the sum of true and false
+#' positives. The \code{PrecTpFpMatrix} computes these measures to both all
+#' genes, and to cis genes only. Simulations suggest only non-parametric tests
+#' need to be adjusted using Benjamini-Hochberg via \code{p.adjust.np}.
+#' 
+#' @aliases FitAllTests JoinTestOutputs PrecTpFpMatrix CitTests p.adjust.np
+#' @param cross object of class \code{cross}
+#' @param pheno1 first phenotype column number or character string name
+#' @param pheno2 second phenotype column number or character string name; if
+#' more than one, then all phenotypes will be tested against \code{pheno1}
+#' @param Q.chr QTL chromosome (number or label)
+#' @param Q.pos QTL position in cM
+#' @param verbose verbose printout if \code{TRUE}
+#' @param comap list result of \code{GetComappingTraits}
+#' @param alpha significance levels at which summaries are computed
+#' @param val.targets validated targets of candidate regulators
+#' @param all.orfs all trait names
+#' @param tests list object as list of \code{FitAllTests} results, or of joined
+#' output created by \code{JoinTestsOutputs}
+#' @param file prefix for file names when running \code{FitAllTests} in
+#' parallel and saving test results in separate files
+#' @param cand.reg object from \code{\link{GetCandReg}}
+#' @param cis.cand.reg object from \code{\link{GetCisCandReg}}
+#' @param method method for p-value adjustment; see
+#' \code{\link[stats]{p.adjust}}
+#' @return List containing \item{Prec1,Prec2}{matrix of precision with rows for
+#' significance level and columns for test; first is for all, second is for cis
+#' candidates only} \item{Tp1,Tp2}{matrix of true positive rate with rows for
+#' significance level and columns for test; first is for all, second is for cis
+#' candidates only} \item{Fp1,Fp2}{matrix of false positive rate with rows for
+#' significance level and columns for test; first is for all, second is for cis
+#' candidates only}
+#' @author Elias Chaibub Neto
+#' @seealso \code{\link{GetCandReg}}, \code{\link{CMSTtests}},
+#' \code{\link[stats]{p.adjust}}
+#' @keywords utilities
+#' @examples
+#' 
+#' example(GetCandReg)
+#' ## Suppose y1 is causal with targets y2 and y3.
+#' targets <- list(y1 = c("y2","y3"))
+#' 
+#' tests <- list()
+#' for(k in seq(names(comap.targets))) {
+#'   tests[[k]] <- FitAllTests(CMSTCross, pheno1 = names(comap.targets)[k],
+#'                       pheno2 = comap.targets[[k]],
+#'                       Q.chr = cand.reg[k, 4],
+#'                       Q.pos = cand.reg[k, 5])
+#' }
+#' names(tests) <- names(comap.targets)
+#' tests <- JoinTestOutputs(comap.targets, tests)
+#' 
+#' PrecTpFpMatrix(alpha = seq(0.01, 0.10, by = 0.01),
+#'   val.targets = targets, all.orfs = CMSThigh$names, tests = tests,
+#'   cand.reg = cand.reg, cis.cand.reg = cis.cand.reg)
+#' 
 PrecTpFpMatrix <- function(alpha, val.targets, all.orfs, tests, cand.reg, cis.cand.reg)
 {
   nms <- as.character(cand.reg[,1])
@@ -1667,6 +1853,77 @@ CreateTraitsLodInt <- function(scan, annot, traits, lod.thr, drop = 1.5)
   subset(out, !is.na(out[, 4]))
 }
 ##############################################################################
+
+
+#' Get genetic information on candidate regulators and co-mapping traits.
+#' 
+#' Get chromosome (phys.chr) and physical position in cM (phys.pos), along with
+#' the LOD score (peak.lod) at the peak position (peak.pos), and the chromosome
+#' where the peak is located (peak.chr). Some candidates may map to the same
+#' chromosome where they are physically located.
+#' 
+#' Traits that map to positions close to their physical locations are said to
+#' map in cis (local linkages).  Traits that map to positions away from their
+#' physical locations are said to map in trans (distal linkages). There is no
+#' unambiguous way to determine how close a trait needs to map to its physical
+#' location in order to be classified as cis. Our choice is to classify a trait
+#' as cis if the 1.5-LOD support interval (Manichaikul et al. 2006) around the
+#' LOD peak contains the trait's physical location, and if the LOD score at its
+#' physical location is higher the the LOD threshold. The function
+#' \code{GetCisCandReg} determines which of the candidate regulators map in
+#' cis. The function \code{GetCoMappingTraits} returns a list with the putative
+#' targets of each trait. A trait is included in the putative target list of a
+#' trait when its LOD peak is greater than \code{lod.thr} and the \code{drop}
+#' LOD support interval around the peak contains the location of the trait's
+#' QTL. The function \code{JoinTestOutputs} currently relies on external files
+#' that contain results of \code{\link{FitAllTests}}. It needs to be rewritten
+#' to save space.
+#' 
+#' @aliases GetCandReg GetCisCandReg GetCoMappingTraits
+#' @param highobj data frame from \code{\link{highlod}}, which is sparse
+#' summary of high LODs in large \code{\link[qtl]{scanone}} object
+#' @param annot data frame with annotation information; must have first column
+#' as unique identifier, third column as chromosome, and fifth column as
+#' position in cM; typically column 2 has gene name, and column 4 has position
+#' in Mb
+#' @param traits names of traits to examine as candidate regulators; names must
+#' correspond to phenotypes in \code{cross} object
+#' @param cand.reg data frame with candidate regulator; see value section below
+#' @param lod.thr LOD threshold; restrict to intervals above this value if not
+#' \code{NULL}
+#' @return \code{GetCoMappingTraits} returns a list with each element being the
+#' names of co-mapping traits for a particular name in \code{traits}.
+#' \code{GetCandReg} returns a data frame while \code{GetCisCandReg} returns a
+#' list with a similar candidate regulator data frame as the element
+#' \code{cis.reg}, and the index of trait names as the element
+#' \code{cis.index}. The elements of the candidate regulator data frame are as
+#' follows (\code{peak.pos.lower} and \code{peak.pos.upper} only for
+#' \code{GetCisCandReg}): \item{gene}{name of trait, which might be a gene
+#' name} \item{phys.chr}{chromosome on which gene physically resides}
+#' \item{phys.pos}{physical position (in cM)} \item{peak.chr}{chromosome where
+#' peak LOD is located} \item{peak.pos}{position of peak (in cM)}
+#' \item{peak.lod}{LOD value at peak}
+#' \item{peak.pos.lower,peak.pos.upper}{lower and upper bounds of the 1.5-LOD
+#' support interval around \code{peak.pos}}
+#' @author Elias Chaibub Neto
+#' @seealso \code{\link{highlod}}, \code{\link{FitAllTests}},
+#' \code{\link[qtl]{scanone}}
+#' @references Manichaikul et al. (2006) Genetics
+#' @keywords utilities
+#' @examples
+#' 
+#' ## data(CMSTCross) is loaded lazily.
+#' CMSTscan <- scanone(CMSTCross, pheno.col = 1:3, method = "hk")
+#' CMSThigh <- highlod(CMSTscan)
+#' traits <- names(CMSTCross$pheno)
+#' annot <- data.frame(name = traits, traits = traits, chr = rep(1, 3),
+#'  Mb.pos = c(55,10,100))
+#' annot$cM.pos <- annot$Mb.pos
+#' cand.reg <- GetCandReg(CMSThigh, annot, traits)
+#' cis.cand.reg <- GetCisCandReg(CMSThigh, cand.reg)
+#' comap.targets <- GetCoMappingTraits(CMSThigh, cand.reg)
+#' 
+#' @export
 GetCandReg <- function(highobj, annot, traits)
 {
   ## currently this only gets max over genome; want max by chr, yes?
@@ -1705,6 +1962,7 @@ GetCandReg <- function(highobj, annot, traits)
   out[!is.na(out[,4]),, drop = FALSE]
 }
 ##############################################################################
+#' @export
 GetCoMappingTraits <- function(highobj, cand.reg)
 {
   chr.pos <- highobj$chr.pos

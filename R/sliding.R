@@ -25,7 +25,7 @@ slidingbar.create <- function(highobj, quant.level = NULL,
   quant.level <- unclass(quant.level)
   
   ## Get matrix of seq(n.quant)
-  quant <- quantile(highobj, max.quantile = FALSE)
+  quant <- quantile_highlod(highobj, max.quantile = FALSE)
   n.quant <- nrow(quant)
   rows <- as.numeric(dimnames(quant)[[2]])
 
@@ -145,7 +145,7 @@ sliding.bar.plot <- function(scan, lod.thr, size.thr, gap=50, y.axes=NULL)
   graphics::axis(side=1, labels=as.character(unique(map[,1])), at=myrug[[2]], 
        cex.axis=1.5, tick=FALSE)
   if(is.null(y.axes))
-    y.axes <- quantile(c(1:N), c(0, 0.25, 0.50, 0.75, 1))
+    y.axes <- stats::quantile(c(1:N), c(0, 0.25, 0.50, 0.75, 1))
   graphics::axis(side=2, labels=as.character(y.axes), at=y.axes, cex.axis=0.9, las=1)
   graphics::axis(side=4, labels=lod.thr[y.axes], at=y.axes, cex.axis=0.9, las=1)
   graphics::mtext("LOD threshold",side=4,cex=1.4,line=3.5,adj=0.545)

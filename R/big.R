@@ -18,6 +18,8 @@
 # Contains: big.phase0, big.phase1, big.phase2, big.phase3, do.big.phase2
 ######################################################################
 
+#' @importFrom qtl calc.genoprob nind scanone
+
 big.phase0 <- function(dirpath, cross, trait.file, trait.matrix,
                        droptrait.names = NULL,
                        keeptrait.names = NULL,
@@ -222,13 +224,13 @@ do.big.phase2 <- function(dirpath, cross, covars, perms, index, trait.index,
   filenames <- list.files(dirpath, paste("per.scan", "[0-9][0-9]*", index, "RData",
                                          sep = "."))
 
-  scan.hl <- cat.scanone(dirpath, filenames, chr.pos)
+  scan.hl <- cat_scanone(dirpath, filenames, chr.pos)
 
   if(remove.files)
     file.remove(dirpath, filenames)
 
   lod.sums <- as.list(max(scan.hl, lod.thrs, window), c("max.N", "max.N.window"))
-  lod.sums$max.lod.quant <- quantile(scan.hl, n.quant = n.quant)
+  lod.sums$max.lod.quant <- quantile_highlod(scan.hl, n.quant = n.quant)
   
   save(scan.hl, lod.sums, cross.index, index,
        file = paste("perm", ".", cross.index, "_", index, ".RData", sep = ""))

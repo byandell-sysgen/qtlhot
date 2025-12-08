@@ -18,6 +18,34 @@
 #
 # Contains: add.phenos
 ######################################################################
+
+
+#' Add phenotypes to cross object.
+#' 
+#' Add phenotypes to cross object by checking index.
+#' 
+#' The name \code{index} must be a phenotype in the \code{cross} object. The
+#' row names of \code{newdata} are matched with values of \code{index}.
+#' 
+#' @param cross object of class \code{cross}; see \code{\link[qtl]{read.cross}}
+#' @param newdata data frame with row names matching values of phenotype
+#' identified by \code{index} for object \code{cross}
+#' @param index character string name of phenotype in object \code{cross}; if
+#' \code{NULL}, then \code{newdata} must be of same size as \code{cross} with
+#' phenotypes in order
+#' @return object of class \code{cross} with added phenotypes
+#' @author Brian S. Yandell, \email{byandell@@wisc.edu}
+#' @seealso \code{\link[qtl]{read.cross}}
+#' @keywords utilities
+#' @examples
+#' 
+#' \dontrun{
+#' data(hyper)
+#' x <- data.frame(x = rnorm(nind(hyper)))
+#' hyperx <- add.phenos(hyper, x)
+#' }
+#' 
+#' @importFrom qtl nind
 add.phenos <- function(cross, newdata = NULL, index = NULL)
 {
   if(!is.null(newdata)) {

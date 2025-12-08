@@ -1,5 +1,5 @@
 Package: qtlhot
-Version: 1.2.0
+Version: 1.2.1
 Date: 2025-12-08
 Authors@R: c(person(given = c("Elias", "Chaibub"),
                         family = "Neto",
@@ -22,10 +22,11 @@ Description: Functions to infer co-mapping trait hotspots and causal models.
   Modeling causality for pairs of phenotypes in system genetics. Genetics 193 : 1003-1013.
   <doi:10.1534/genetics.112.147124>.
 Maintainer: Brian S. Yandell <brian.yandell@wisc.edu>
-Depends: stats,qtl,mnormt,utils,corpcor,
+Depends: stats,qtl,mnormt,utils,corpcor,broman,
   R (>= 2.10)
 LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://www.stat.wisc.edu/~yandell/statgen
+Encoding: UTF-8
 RoxygenNote: 7.3.3

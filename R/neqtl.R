@@ -19,8 +19,18 @@
 # Contains: neqtl, smoothall, smoothchr
 ######################################################################
 
-neqtl <- function(sigpos.out,chr,pos,win=5)
-     smoothall(sigpos.out,chr,pos,window=win)
+#' neqtl.R Ported from http://github.com/kbroman/neqtl
+#'
+#' @param sigpos.out 
+#' @param chr 
+#' @param pos 
+#' @param win 
+#'
+#' @export
+#' @importFrom broman runningmean
+neqtl <- function(sigpos.out,chr,pos,win=5) {
+  smoothall(sigpos.out,chr,pos,window=win)
+}
 
 smoothall <- function(themax, thechr, thepos, window=5)
 {
@@ -53,7 +63,7 @@ smoothchr <- function(themax, thepos, window=5)
   o <- order(temploc)
   temploc <- temploc[o]
   tempval <- tempval[o]
-  smoothed <- runningmean(temploc, tempval, at=thepos, window=window, what="sum")
+  smoothed <- broman::runningmean(temploc, tempval, at=thepos, window=window, what="sum")
   ## NB: This differs from R/neqtl, where at=theloc.
   cbind(thepos, smoothed)
 }

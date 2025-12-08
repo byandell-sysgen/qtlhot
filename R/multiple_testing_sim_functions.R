@@ -1,3 +1,4 @@
+#' @importFrom qtl calc.genoprob scanone sim.cross sim.map
 MyMultipleTestingSim <- function(nSim,
                           n.ind,
                           n.pheno,
