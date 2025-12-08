@@ -40,7 +40,6 @@
 #' the corresponding \code{Q}-method's permutation threshold is 18. According
 #' to this threshold, all hotspots are significant.
 #' 
-#' @aliases ww.perm summary.ww.perm print.ww.perm
 #' @param highobj object of class \code{\link{highlod}}
 #' @param n.perm number of permutations
 #' @param lod.thrs vector of LOD thresholds

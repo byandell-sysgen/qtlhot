@@ -47,7 +47,7 @@ MyMultipleTestingSim <- function(nSim,
                            Q.pos = su[[2]][1],
                            method = "all",
                            penalty = "both"), silent = TRUE)
-      if (class(aux) != "try-error") {
+      if(!inherits(aux, "try-error")) {
         R2s[[k]] <- aux$R2s
         BICs[[k]] <- aux$BIC.stats
         AICs[[k]] <- aux$AIC.stats
@@ -131,7 +131,7 @@ MyMultipleTestingSim2 <- function(nSim,
                            Q.pos = su[[2]][1],
                            method = "all",
                            penalty = "both"), silent = TRUE)
-      if (class(aux) != "try-error") {
+      if(!inherits(aux, "try-error")) {
         R2s[[k]] <- aux$R2s
         BICs[[k]] <- aux$BIC.stats
         AICs[[k]] <- aux$AIC.stats

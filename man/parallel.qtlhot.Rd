@@ -2,8 +2,6 @@
 % Please edit documentation in R/parallel.R
 \name{parallel.qtlhot}
 \alias{parallel.qtlhot}
-\alias{qtlhot.phase0}
-\alias{big.phase0}
 \title{Code for parallelizing R/qtlhot.}
 \usage{
 parallel.qtlhot(x, data = 1, ..., dirpath = ".")

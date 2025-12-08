@@ -1,40 +1,17 @@
-%\VignetteIndexEntry{Qtlhot Tutorial}
-%\VignetteKeywords{permutation,threshold,QTL}
+---
+title: "Qtlhot Tutorial"
+author: "Elias Chaibub Neto and Brian S. Yandell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R/qtl2ggplot Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
 
-\documentclass[11pt]{article}
-
-\usepackage{amssymb,amsmath}
-\usepackage{amsbsy}
-\usepackage[all]{xy}
-\usepackage{latexsym}
-\usepackage{float}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{Sweave}
-
-\topmargin 0.0cm
-\oddsidemargin 0cm
-\evensidemargin 0cm
-\textwidth 16cm
-\textheight 21cm
-
-\date{\today}
-
-\SweaveOpts{eps=FALSE,keep.source=TRUE}
-
-\title{Quantile-based permutation thresholds for QTL hotspot analysis: a tutorial}
-
-\author{Elias Chaibub Neto\footnote{Department of Computational Biology, Sage Bionetworks, Seattle WA} \ and Brian S Yandell\footnote{Department of Statistics, University of Wisconsin-Madison, Madison WI}}
-
-\date{\today}
-
-\begin{document}
-
-\maketitle
-
-%\begin{center}
-%{\bf Abstract}
-%\end{center}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
+```
 
 ## Motivation
 
@@ -196,7 +173,7 @@ The \texttt{max.lod.quant} element of the \texttt{quantile} contains the sliding
 
 ```{r label=figex1slidingbar,include=FALSE,echo=FALSE}
 par(mar=c(4.1,4.1,0.5,4.1))
-quant1 <- quantile(hotperm1, 0.05, lod.thr = lod.thr)
+quant1 <- quantile_hotperm(hotperm1, 0.05, lod.thr = lod.thr)
 plot(high1, quant.level = quant1, sliding = TRUE)
 ```
 
@@ -212,7 +189,7 @@ plot(high1, quant.level = quant1, sliding = TRUE)
 
 \begin{Schunk}
 \begin{Sinput}
-> quant1 <- quantile(hotperm1, 0.05, lod.thr = lod.thr)
+> quant1 <- quantile_hotperm(hotperm1, 0.05, lod.thr = lod.thr)
 > plot(high1, quant.level = quant1, sliding = TRUE)
 \end{Sinput}
 \end{Schunk}
@@ -348,7 +325,7 @@ if(!exists("hotperm2")) {
 }
 ```
 ```{r echo=FALSE}
-quant2 <- quantile(hotperm2, 0.05, lod.thr = lod.thr)
+quant2 <- quantile_hotperm(hotperm2, 0.05, lod.thr = lod.thr)
 ```
 ```{r label=plotex2slidingbar,width=6,height=3.5,fig=TRUE,echo=FALSE,include=FALSE}
 par(mar=c(4.1,4.1,0.5,0.1))
@@ -386,7 +363,7 @@ plot(high2, quant.level = quant2)
 +                 alpha.levels = alphas,
 +                 drop.lod = 1.5, 
 +                 verbose = FALSE) 
-> quant2 <- quantile(hotperm2, 0.05, lod.thr = lod.thr)
+> quant2 <- quantile_hotperm(hotperm2, 0.05, lod.thr = lod.thr)
 \end{Sinput}
 \end{Schunk}
 

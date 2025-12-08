@@ -40,8 +40,6 @@
 #' use. There is apparently an S3 parallel method, so doc has to be as shown
 #' below, even though it is called as parallel.qtlhot.
 #' 
-#' 
-#' @aliases parallel.qtlhot qtlhot.phase0 big.phase0
 #' @param x phase of parallel processing (1,2,3)
 #' @param data index for parallel processing (1,2,...)
 #' @param \dots additional arguments passed along

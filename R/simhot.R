@@ -144,8 +144,6 @@ mySimulations <- function(...) sim.hotspot(...)
 #' phenotypes with correlation \code{latent.eff}. All simulations use the same
 #' genotypes in the \code{cross} object.
 #' 
-#' @aliases sim.hotspot mySimulations sim.null.cross sim.null.pheno.data
-#' include.hotspots
 #' @param nSim Number of simulated sets of phenotypes to create. See details.
 #' @param cross Object of class \code{cross}. See
 #' \code{\link[qtl]{read.cross}}.

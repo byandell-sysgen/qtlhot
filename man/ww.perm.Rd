@@ -2,8 +2,8 @@
 % Please edit documentation in R/ww.perm.R
 \name{ww.perm}
 \alias{ww.perm}
-\alias{summary.ww.perm}
 \alias{print.ww.perm}
+\alias{summary.ww.perm}
 \title{Conduct West-Wu (Q) permutation tests}
 \usage{
 ww.perm(highobj, n.perm, lod.thrs, alpha.levels, verbose = FALSE)

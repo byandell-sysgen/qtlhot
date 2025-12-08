@@ -1,102 +1,17 @@
-%\VignetteIndexEntry{CMST Tutorial}
-%\VignetteKeywords{causal,threshold,QTL}
+---
+title: "Causal Model Selection Hypothesis Tests in Systems Genetics: \\ a tutorial"
+author: "Elias Chaibub Neto and Brian S. Yandell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R/qtl2ggplot Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
 
-\documentclass[11pt]{article}
-
-\usepackage{epsf}
-\usepackage{epsfig}
-\usepackage{amssymb,amsmath}
-\usepackage{amsbsy}
-\usepackage[all]{xy}
-\usepackage{latexsym}
-\usepackage{float}
-\usepackage{amsthm}
-
-
-
-\usepackage{graphicx}
-\usepackage{Sweave}
-
-%\topmargin 0.0cm
-%\oddsidemargin 0.5cm
-%\evensidemargin 0.5cm
-%\textwidth 16cm
-%\textheight 21cm
-
-\topmargin 0.0cm
-\oddsidemargin 0cm
-\evensidemargin 0cm
-\textwidth 16cm
-\textheight 21cm
-
-%\usepackage{setspace}
-%\doublespacing
-
-\date{\today}
-
-%% ** EDIT HERE **
-%% PLEASE INCLUDE ALL MACROS BELOW
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
-\newtheorem{result}{Result}
-\newcommand{\x}{{\bf x}}
-\newcommand{\z}{{\bf z}}
-\newcommand{\Z}{{\bf Z}}
-\newcommand{\m}{{\bf m}}
-\newcommand{\M}{{\bf M}}
-\newcommand{\y}{{\bf y}}
-\newcommand{\Y}{{\bf Y}}
-\newcommand{\C}{{\bf C}}
-\newcommand{\V}{{\bf V}}
-\newcommand{\bS}{{\bf S}}
-\newcommand{\HH}{{\bf H}}
-\newcommand{\mone}{M_{1}}
-\newcommand{\mtwo}{M_{2}}
-\newcommand{\mthree}{M_{3}}
-\newcommand{\q}{{\bf q}}
-\newcommand{\Q}{{\bf Q}}
-\newcommand{\X}{{\bf X}}
-\newcommand{\I}{{\bf I}}
-\newcommand{\G}{{\bf G}}
-\newcommand{\zero}{{\bf 0}}
-\newcommand{\e}{\boldsymbol{\epsilon}}
-\newcommand{\be}{\boldsymbol{\beta}}
-\newcommand{\Sig}{\boldsymbol{\Sigma}}
-\newcommand{\sig}{\boldsymbol{\sigma}}
-\newcommand{\Om}{\boldsymbol{\Omega}}
-\newcommand{\muu}{\boldsymbol{\mu}}
-\newcommand{\Ga}{\boldsymbol{\Gamma}}
-\newcommand{\Tht}{\boldsymbol{\Theta}}
-\newcommand{\tht}{\boldsymbol{\theta}}
-\newcommand{\lbd}{\boldsymbol{\lambda}}
-\newcommand{\ga}{\boldsymbol{\gamma}}
-\newcommand{\Ro}{\boldsymbol{\rho}}
-\newcommand{\mM}{\mathcal{M}}
-\newcommand{\mG}{\mathcal{G}}
-\newcommand{\ci}{\perp\!\!\!\perp}
-\newcommand{\nci}{\not\!\perp\!\!\!\perp}
-\newcommand{\ind}{1\!\!1}
-\newcommand{\nuM}{\;\not\!M}
-\newcommand{\nM}{\not\!\!\!M}
-%% END MACROS SECTION
-
-%\renewcommand{\figurename}{Figure S}
-
-%\newfloat{supplefig}{htbp}{lgr}
-%\floatname{supplefig}{Figure S}
-
-\title{Causal Model Selection Hypothesis Tests in Systems Genetics: \\ a tutorial}
-
-\author{Elias Chaibub Neto\footnote{Department of Computational Biology, Sage Bionetworks, Seattle WA} and Brian S Yandell\footnote{Department of Statistics, University of Wisconsin-Madison, Madison WI}}
-
-
-
-\begin{document}
-\SweaveOpts{concordance=TRUE}
-
-\maketitle
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
+```
 
 ## Motivation
 

@@ -61,6 +61,7 @@ max.highlod <- function(x, lod.thr = NULL, window = NULL, quant.level = NULL, ..
     mymax(hotsize(x, lod.thr, window, quant.level, ...), window, quant.level)
 }
 ################################################################################
+#' @export
 quantile_highlod <- function(x, probs = NULL, lod.thr = NULL, n.quant, n.pheno,
                              max.quantile = TRUE, ...)
 {
@@ -119,6 +120,7 @@ get.tails <- function(highs, n.quant = 2000, s.quant = seq(n.quant))
   out
 }
 #####################################################################
+#' @export
 quantile_hotperm <- function(x, probs = attr(x, "alpha.levels"),
                              ..., lod.thr = NULL)
 {

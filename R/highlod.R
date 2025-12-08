@@ -8,8 +8,6 @@
 #' or interval of locations. Summary, print, plot, max and quantile methods
 #' provide ways to examine a \code{highlod} object.
 #' 
-#' @aliases highlod print.highlod summary.highlod plot.highlod max.highlod
-#' quantile.highlod pull.highlod
 #' @param scans object of class \code{\link[qtl]{scanone}}
 #' @param lod.thr LOD threshold
 #' @param drop.lod LOD drop from max to keep for support intervals

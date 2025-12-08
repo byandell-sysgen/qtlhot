@@ -4,8 +4,6 @@
 #' thresholds as provided.
 #' 
 #' 
-#' @aliases hotsize hotsize.scanone hotsize.highlod print.hotsize
-#' summary.hotsize plot.hotsize
 #' @param hotobject object of class \code{\link[qtl]{scanone}} or
 #' \code{\link{highlod}}
 #' @param lod.thr LOD threshold

@@ -2,8 +2,6 @@
 % Please edit documentation in R/simcmst.R
 \name{SimCrossCausal}
 \alias{SimCrossCausal}
-\alias{SimCrossIndep}
-\alias{CMSTCross}
 \title{Simulate Cross for Causal Tests}
 \usage{
 SimCrossCausal(

@@ -2,10 +2,6 @@
 % Please edit documentation in R/simhot.R
 \name{sim.hotspot}
 \alias{sim.hotspot}
-\alias{mySimulations}
-\alias{sim.null.cross}
-\alias{sim.null.pheno.data}
-\alias{include.hotspots}
 \title{Wrapper routine for simulations.}
 \usage{
 sim.hotspot(

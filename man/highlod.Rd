@@ -6,8 +6,6 @@
 \alias{summary.highlod}
 \alias{plot.highlod}
 \alias{max.highlod}
-\alias{quantile.highlod}
-\alias{pull.highlod}
 \title{Pull high LOD values with chr and pos.}
 \usage{
 highlod(

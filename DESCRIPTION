@@ -1,5 +1,5 @@
 Package: qtlhot
-Version: 1.2.1
+Version: 1.2.2
 Date: 2025-12-08
 Authors@R: c(person(given = c("Elias", "Chaibub"),
                         family = "Neto",
