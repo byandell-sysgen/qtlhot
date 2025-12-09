@@ -21,19 +21,7 @@
 #' thresholds for various significance levels.
 #' @param drop.lod Drop in LOD score examined. LODs below this drop from the
 #' maximum for a chromosome will not be scored.
-#' @param init.seed Initial seed for random number generation.
-#' @param chr.len Length of chromosomes.
-#' @param n.mar Number of markers.
-#' @param n.ind Number of individuals.
-#' @param type Type of cross.
-#' @param hchr Chromosomes with hotspots.
-#' @param hpos Positions of hotspots.
-#' @param hsize Sizes of hotspots.
-#' @param Q.eff Effect size of QTLs.
-#' @param lod.range.1 LOD range for the first trait.
-#' @param lod.range.2 LOD range for the second trait.
-#' @param lod.range.3 LOD range for the third trait.
-#' @param \dots Additional arguments passed to internal functions.
+#' @param verbose verbose output if \code{TRUE}
 #' @return `sim.null.cross` simulates an object of class `cross`.
 #' `sim.null.pheno.data` simulates a data frame of phenotypes.
 #' `sim.hotspot` uses these other routines to simulate a hotspot,

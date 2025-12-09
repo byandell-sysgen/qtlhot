@@ -18,10 +18,6 @@
 #' @param chr chromosome identifier
 #' @param pos position, or range of positions, in cM
 #' @param x,object object of class \code{highlod}
-#' @param probs Probability levels for quantiles.
-#' @param n.quant Maximum number of quantiles to compute.
-#' @param n.pheno Number of phenotypes considered.
-#' @param max.quantile Logical; if `TRUE`, returns only the maximum quantile values.
 #' @param window size of window for smoothing hotspot size
 #' @param quant.level vector of LOD levels for 1 up to
 #' \code{length(quant.level)} size hotspots

@@ -32,7 +32,6 @@
 #' @param intcovar interactive covariates as vector or matrix; see
 #' \code{\link[qtl]{scanone}}
 #' @param level Significance level for hotspot detection.
-#' @param lod.thr LOD threshold for filtering scores.
 #' @param \dots arguments passed along to \code{scanone}
 #' @author Elias Chaibub Neto and Brian S Yandell
 #' @keywords utilities
@@ -100,7 +99,7 @@ hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1
     max.N.window <- max.N
 
   max.lod.quant <- matrix(0, n.perm, n.quant)
-  dimnames(max.lod.quant) <- list(NULL, as.character(s.quant))
+  dimnames(max.lod.quant) <- list(NULL, as.character(seq_len(n.quant)))
 
   for(i in 1:n.perm){
     if(verbose)

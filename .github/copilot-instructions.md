@@ -1,4 +1,7 @@
 # AI Coding Agent Instructions for `qtlhot`
+See
+- [GitHub Copilot in VS Code](https://code.visualstudio.com/docs/copilot/overview)
+- [Use custom instructions in VS Code](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
 
 ## Overview
 The `qtlhot` package is an R-based library for statistical inference of QTL (Quantitative Trait Loci) hotspots and causal modeling in system genetics. It includes functions for co-mapping trait hotspots and causal model inference. The package is based on methodologies described in:

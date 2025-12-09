@@ -6,10 +6,10 @@
 #' @param len vector specifying the chromosome lengths (in cM)
 #' @param n.mar vector specifying the number of markers per chromosome
 #' @param beta causal effect (slope) of first phenotype on others
-#' @param add.eff,add.eff.1,add.eff.h additive genetic effect
-#' @param dom.eff,dom.eff.1,dom.eff.h dominance genetic effect
+#' @param add.eff additive genetic effect
+#' @param dom.eff dominance genetic effect
 #' @param sig2.1 residual variance for first phenotype
-#' @param sig2.2,sig2.h residual variance for all other phenotypes
+#' @param sig2.2 residual variance for all other phenotypes
 #' @param eq.spacing if \code{TRUE}, markers will be equally spaced
 #' @param cross.type type of cross (\code{bc} and \code{f2} for now)
 #' @param normalize normalize values if \code{TRUE}
