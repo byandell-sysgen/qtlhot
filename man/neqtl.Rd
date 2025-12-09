@@ -7,13 +7,13 @@
 neqtl(sigpos.out, chr, pos, win = 5)
 }
 \arguments{
-\item{sigpos.out}{}
+\item{sigpos.out}{position(s) of max}
 
-\item{chr}{}
+\item{chr}{chromosome as character}
 
-\item{pos}{}
+\item{pos}{position on chromosome}
 
-\item{win}{}
+\item{win}{window width in cM}
 }
 \description{
 neqtl.R Ported from http://github.com/kbroman/neqtl

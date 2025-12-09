@@ -1,30 +1,9 @@
-######################################################################
-# neqtl.R
-#
-# Karl W Broman
-# Ported from http://github.com/kbroman/neqtl on 27 apr 2012
-#
-#     This program is free software; you can redistribute it and/or
-#     modify it under the terms of the GNU General Public License,
-#     version 3, as published by the Free Software Foundation.
-# 
-#     This program is distributed in the hope that it will be useful,
-#     but without any warranty; without even the implied warranty of
-#     merchantability or fitness for a particular purpose.  See the GNU
-#     General Public License, version 3, for more details.
-# 
-#     A copy of the GNU General Public License, version 3, is available
-#     at http://www.r-project.org/Licenses/GPL-3
-#
-# Contains: neqtl, smoothall, smoothchr
-######################################################################
-
 #' neqtl.R Ported from http://github.com/kbroman/neqtl
 #'
-#' @param sigpos.out 
-#' @param chr 
-#' @param pos 
-#' @param win 
+#' @param sigpos.out position(s) of max
+#' @param chr chromosome as character
+#' @param pos position on chromosome
+#' @param win window width in cM
 #'
 #' @export
 #' @importFrom broman runningmean

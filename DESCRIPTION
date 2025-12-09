@@ -1,5 +1,5 @@
 Package: qtlhot
-Version: 1.2.2
+Version: 1.2.3
 Date: 2025-12-08
 Authors@R: c(person(given = c("Elias", "Chaibub"),
                         family = "Neto",
@@ -30,3 +30,7 @@ License: GPL (>= 2)
 URL: http://www.stat.wisc.edu/~yandell/statgen
 Encoding: UTF-8
 RoxygenNote: 7.3.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

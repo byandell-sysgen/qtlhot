@@ -4,13 +4,14 @@ author: "Elias Chaibub Neto and Brian S. Yandell"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{R/qtl2ggplot Vignette}
+  %\VignetteIndexEntry{causal-model-selection-hypothesis-tests}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5,
+                      collapse = TRUE, comment = "#>")
 ```
 
 ## Motivation
