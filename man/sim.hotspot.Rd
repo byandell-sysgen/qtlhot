@@ -46,31 +46,7 @@ thresholds for various significance levels.}
 \item{drop.lod}{Drop in LOD score examined. LODs below this drop from the
 maximum for a chromosome will not be scored.}
 
-\item{init.seed}{Initial seed for random number generation.}
-
-\item{chr.len}{Length of chromosomes.}
-
-\item{n.mar}{Number of markers.}
-
-\item{n.ind}{Number of individuals.}
-
-\item{type}{Type of cross.}
-
-\item{hchr}{Chromosomes with hotspots.}
-
-\item{hpos}{Positions of hotspots.}
-
-\item{hsize}{Sizes of hotspots.}
-
-\item{Q.eff}{Effect size of QTLs.}
-
-\item{lod.range.1}{LOD range for the first trait.}
-
-\item{lod.range.2}{LOD range for the second trait.}
-
-\item{lod.range.3}{LOD range for the third trait.}
-
-\item{\dots}{Additional arguments passed to internal functions.}
+\item{verbose}{verbose output if \code{TRUE}}
 }
 \value{
 `sim.null.cross` simulates an object of class `cross`.

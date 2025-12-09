@@ -1,1 +1,10 @@
 .github/
+qtlhot.Rproj
+.Rhistory
+.RData
+.Ruserdata
+.Rbuildignore
+.Rproj.user/
+vignettes/*.html
+qtlhot.Rcheck/
+inst/doc/*.html

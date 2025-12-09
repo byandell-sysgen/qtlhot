@@ -27,13 +27,13 @@ SimCrossCausal(
 
 \item{beta}{causal effect (slope) of first phenotype on others}
 
-\item{add.eff, add.eff.1, add.eff.h}{additive genetic effect}
+\item{add.eff}{additive genetic effect}
 
-\item{dom.eff, dom.eff.1, dom.eff.h}{dominance genetic effect}
+\item{dom.eff}{dominance genetic effect}
 
 \item{sig2.1}{residual variance for first phenotype}
 
-\item{sig2.2, sig2.h}{residual variance for all other phenotypes}
+\item{sig2.2}{residual variance for all other phenotypes}
 
 \item{eq.spacing}{if \code{TRUE}, markers will be equally spaced}
 

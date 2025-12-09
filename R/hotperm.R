@@ -26,7 +26,6 @@
 #' @param x,object object of class \code{hotperm} or \code{summary.hotperm}
 #' @param probs probability levels for quantiles (\code{1-probs} if all > 0.5);
 #' default is \code{alpha.levels}
-#' @param lod.thr restrict to values above this if not \code{NULL}
 #' @param addcovar additive covariates as vector or matrix; see
 #' \code{\link[qtl]{scanone}}
 #' @param intcovar interactive covariates as vector or matrix; see

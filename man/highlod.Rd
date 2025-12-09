@@ -55,14 +55,6 @@ matches behavior of \code{\link[qtl]{lodint}} when \code{FALSE} (default)}
 \item{pos}{position, or range of positions, in cM}
 
 \item{window}{size of window for smoothing hotspot size}
-
-\item{probs}{Probability levels for quantiles.}
-
-\item{n.quant}{Maximum number of quantiles to compute.}
-
-\item{n.pheno}{Number of phenotypes considered.}
-
-\item{max.quantile}{Logical; if `TRUE`, returns only the maximum quantile values.}
 }
 \value{
 Data frame with \item{row}{row number in \code{\link[qtl]{scanone}}

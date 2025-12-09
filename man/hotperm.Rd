@@ -68,7 +68,7 @@ default is \code{alpha.levels}}
 
 \item{level}{Significance level for hotspot detection.}
 
-\item{lod.thr}{LOD threshold for filtering scores.}
+\item{lod.thr}{restrict to values above this if not \code{NULL}}
 }
 \description{
 This set of functions compute the permutation LOD thresholds for the NL-method
