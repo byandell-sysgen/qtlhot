@@ -32,16 +32,10 @@
 #' @param Q.pos QTL position in cM
 #' @param verbose verbose printout if `TRUE
 #' @param comap list result of `GetComappingTraits()`
-#' @param alpha significance levels at which summaries are computed
-#' @param val.targets validated targets of candidate regulators
-#' @param all.orfs all trait names
 #' @param tests list object as list of `FitAllTests()` results, or of joined
 #' output created by `JoinTestsOutputs()`
 #' @param file prefix for file names when running `FitAllTests()` in
 #' parallel and saving test results in separate files
-#' @param cand.reg object from `GetCandReg()`
-#' @param cis.cand.reg object from `GetCisCandReg()`
-#' @param method method for p-value adjustment; see
 #' \code{\link[stats]{p.adjust}}
 #' @return List containing \item{Prec1,Prec2}{matrix of precision with rows for
 #' significance level and columns for test; first is for all, second is for cis
@@ -97,6 +91,7 @@ FitAllTests <- function(cross, pheno1, pheno2, Q.chr, Q.pos, verbose = TRUE)
   }
   out
 }
+#' @param LL,GG,TT Numeric vectors corresponding to genotype
 #' @export
 #' @rdname FitAllTests
 CitTests <- function(LL, GG, TT)

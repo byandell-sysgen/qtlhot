@@ -29,26 +29,16 @@ more than one, then all phenotypes will be tested against `pheno1`}
 
 \item{verbose}{verbose printout if `TRUE}
 
+\item{LL, GG, TT}{Numeric vectors corresponding to genotype}
+
 \item{comap}{list result of `GetComappingTraits()`}
 
 \item{file}{prefix for file names when running `FitAllTests()` in
-parallel and saving test results in separate files}
+parallel and saving test results in separate files
+\code{\link[stats]{p.adjust}}}
 
 \item{tests}{list object as list of `FitAllTests()` results, or of joined
 output created by `JoinTestsOutputs()`}
-
-\item{alpha}{significance levels at which summaries are computed}
-
-\item{val.targets}{validated targets of candidate regulators}
-
-\item{all.orfs}{all trait names}
-
-\item{cand.reg}{object from `GetCandReg()`}
-
-\item{cis.cand.reg}{object from `GetCisCandReg()`}
-
-\item{method}{method for p-value adjustment; see
-\code{\link[stats]{p.adjust}}}
 }
 \value{
 List containing \item{Prec1,Prec2}{matrix of precision with rows for

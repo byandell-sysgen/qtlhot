@@ -78,6 +78,13 @@ After a round of development, follow these steps to run package checks:
 - Install the built package using `devtools::install()`.
 - Run package checks with `devtools::check(document = FALSE, args = c('--as-cran'))`.
 
+```zsh
+R -e "devtools::document()"
+R -e "devtools::build()"
+R -e "devtools::install()"
+R -e "devtools::check(document = FALSE, args = c('--as-cran'))"
+```
+
 The `devtools::check()` function is used to ensure the package meets CRAN standards. The options used here are:
 - **`document = FALSE`**: Skips re-documenting the package.
 - **`args = c('--as-cran')`**: Runs checks as if submitting to CRAN.
