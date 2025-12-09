@@ -57,9 +57,18 @@ R CMD INSTALL qtlhot_1.2.3.tar.gz
 - Leverage `traceback()` to debug errors.
 
 ### Running Package Checks
-To validate the package, use `devtools::check` instead of `R CMD check`. This ensures better integration with RStudio and additional options for customization. Run the following command:
+
+Before building the package, always run the following command to ensure that the documentation files are up-to-date:
 
 ```R
+devtools::document()
+```
+
+After updating the documentation, proceed to build the package and run checks to validate it. Use the following commands:
+
+```R
+R CMD build .
+# R CMD check qtlhot_1.2.3.tar.gz
 devtools::check(document = FALSE, args = c('--as-cran'))
 ```
 

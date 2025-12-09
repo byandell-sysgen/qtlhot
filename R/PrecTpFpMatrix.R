@@ -1,3 +1,25 @@
+#' Compute Precision, True Positives, and False Positives
+#' 
+#' The `PrecTpFpMatrix` function calculates precision, true positives, and false positives for various tests.
+#' It is used to evaluate the performance of QTL mapping methods.
+#' 
+#' @param alpha A numeric vector of significance levels.
+#' @param val.targets A vector of validated target genes.
+#' @param all.orfs A vector of all open reading frames (ORFs).
+#' @param tests A list of test results for different methods.
+#' @param cand.reg Candidate regions for QTL mapping.
+#' @param cis.cand.reg Cis-regulatory candidate regions.
+#' 
+#' @return A list of matrices containing precision, true positives, and false positives for each method and significance level.
+#' @examples
+#' \dontrun{
+#' results <- PrecTpFpMatrix(alpha = seq(0.01, 0.1, by = 0.01),
+#'                           val.targets = validated_genes,
+#'                           all.orfs = all_genes,
+#'                           tests = test_results,
+#'                           cand.reg = candidate_regions,
+#'                           cis.cand.reg = cis_regions)
+#' }
 #' @export
 PrecTpFpMatrix <- function(alpha, val.targets, all.orfs, tests, cand.reg, cis.cand.reg)
 {

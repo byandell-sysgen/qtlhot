@@ -257,6 +257,8 @@ scanone.permutations <- function(cross, pheno.col = seq(3, qtl::nphe(cross)),
   }
 }
 ###################################################################
+#' @rdname highlod
+#' @export
 pull.highlod <- function(object, chr, pos, ...)
 {
   ## Kludge to get names if not in object

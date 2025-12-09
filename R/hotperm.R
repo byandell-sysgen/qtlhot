@@ -274,3 +274,20 @@ plot.hotperm <- function(x, probs = seq(0.9, 0.99, by = 0.01), level = 0.95, ...
                 1 - max(probs), "to", 1 - min(probs)))
   }
 }
+#' Example object for hotperm results
+#' 
+#' The `hotperm1` object is an example output from the `hotperm` function. It contains the results of permutation tests for hotspot size thresholds.
+#' This object is used to demonstrate the functionality of the `hotperm` package.
+#' 
+#' @format A list with the following components:
+#' \describe{
+#'   \item{max.N}{Matrix of maximum hotspot sizes for different LOD thresholds.}
+#'   \item{max.N.window}{Matrix of smoothed maximum hotspot sizes (if window smoothing is applied).}
+#'   \item{max.lod.quant}{Matrix of maximum LOD scores for different quantiles.}
+#' }
+#' @examples
+#' \dontrun{
+#' data(hotperm1)
+#' summary(hotperm1)
+#' }
+"hotperm1"
