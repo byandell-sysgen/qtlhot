@@ -5,6 +5,7 @@
 \alias{print.highlod}
 \alias{summary.highlod}
 \alias{plot.highlod}
+\alias{pull.highlod}
 \alias{max.highlod}
 \title{Pull high LOD values with chr and pos.}
 \usage{
@@ -22,6 +23,8 @@ highlod(
 \method{summary}{highlod}(object, ...)
 
 \method{plot}{highlod}(x, ..., quant.level = NULL, sliding = FALSE)
+
+pull.highlod(object, chr, pos, ...)
 
 \method{max}{highlod}(x, lod.thr = NULL, window = NULL, quant.level = NULL, ...)
 }
@@ -47,11 +50,11 @@ matches behavior of \code{\link[qtl]{lodint}} when \code{FALSE} (default)}
 
 \item{sliding}{plot as sliding hotspot if \code{TRUE}}
 
-\item{window}{size of window for smoothing hotspot size}
-
 \item{chr}{chromosome identifier}
 
 \item{pos}{position, or range of positions, in cM}
+
+\item{window}{size of window for smoothing hotspot size}
 
 \item{probs}{probability levels for quantiles (should be > 0.5)}
 
