@@ -36,14 +36,23 @@ The `qtlhot` package is an R-based library for statistical inference of QTL (Qua
    - Use `knitr` and `rmarkdown` for rendering.
 
 ## Developer Workflows
+
+Ensure that Pandoc is installed to rebuild vignettes. On macOS, install it using Homebrew:
+```zsh
+brew install pandoc
+```
+
 ### Building the Package
+
 Run the following command in the R console to build the package:
 ```R
 R CMD build .
 ```
 
 ### Installing the Package
+
 Install the package locally using:
+
 ```R
 R CMD INSTALL qtlhot_1.2.3.tar.gz
 ```
@@ -58,32 +67,25 @@ R CMD INSTALL qtlhot_1.2.3.tar.gz
 
 ### Running Package Checks
 
-Before building the package, always run the following command to ensure that the documentation files are up-to-date:
+After a round of development, follow these steps to run package checks:
 
-```R
-devtools::document()
-```
+- Commit and push all changes to the repository.
+- Update documentation files using `devtools::document()`.
+- Build the repository package with `devtools::build()`.
+- Install the built package using `devtools::install()`.
+- Run package checks with `devtools::check(document = FALSE, args = c('--as-cran'))`.
 
-After updating the documentation, proceed to build the package and run checks to validate it. Use the following commands:
-
-```R
-R CMD build .
-# R CMD check qtlhot_1.2.3.tar.gz
-devtools::check(document = FALSE, args = c('--as-cran'))
-```
-
+The `devtools::check()` function is used to ensure the package meets CRAN standards. The options used here are:
 - **`document = FALSE`**: Skips re-documenting the package.
 - **`args = c('--as-cran')`**: Runs checks as if submitting to CRAN.
 
-This command will:
+The check command will:
 - Build the package.
 - Check for errors, warnings, and notes.
 - Validate examples, vignettes, and documentation.
 
-Ensure that Pandoc is installed to rebuild vignettes. On macOS, install it using Homebrew:
-```zsh
-brew install pandoc
-```
+### Fixing Issues from Package Checks
+- Address any errors, warnings, or notes reported by `devtools::check()`.
 
 ## External Dependencies
 - R packages: `stats`, `qtl`, `mnormt`, `utils`, `corpcor`, `broman`.
