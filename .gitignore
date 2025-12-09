@@ -8,3 +8,4 @@
 *.Rproj
 inst/doc
 qtlhot.Rcheck/
+*.tar.gz
