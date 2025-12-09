@@ -76,21 +76,23 @@ if(file.exists("savedperms.RData")) load("savedperms.RData")
 Next we obtain standard permutation thresholds (Churchill and Doerge 1994) for single trait QTL mapping analysis for the sequence \texttt{alphas}, representing target genome wide error rates (GWER).
 
 ```{r echo=FALSE}
-if(!exists("pt")) {
+if(!exists("pt.scanone")) {
   set.seed(123)
-  pt <- scanone(ncross1, method = "hk", n.perm = 1000)
+  pt.scanone <- scanone(ncross1, method = "hk", n.perm = 1000)
 }
 ```
 \begin{Schunk}
 \begin{Sinput}
 > set.seed(123)
-> pt <- scanone(ncross1, method = "hk", n.perm = 1000)
+> pt.scanone <- scanone(ncross1, method = "hk", n.perm = 1000)
 \end{Sinput}
 \end{Schunk}
 
-```{r }
+```{r}
 alphas <- seq(0.01, 0.10, by=0.01)
-lod.thrs <- summary(pt, alphas)
+# Following works but breaks CRAN build:
+lod.thrs <- summary(pt.scanone, alphas)
+#lod.thrs <- qtl:::summary.scanoneperm(pt.scanone, alphas)
 lod.thrs
 lod.thr <- lod.thrs[5]
 ```
@@ -370,7 +372,7 @@ plot(high2, quant.level = quant2)
 
 ```{r echo=FALSE}
 if(!file.exists("savedperms.RData"))
-  save(pt, hotperm1, hotperm2, file = "savedperms.RData", compress = TRUE)
+  save(pt.scanone, hotperm1, hotperm2, file = "savedperms.RData", compress = TRUE)
 ```
 
 The $N$-method, as expected, gave rise to much smaller thresholds in this second example with uncorrelated phenotypes. Additionally, inspection of Figure \@ref(plotex2counts) shows no spurious hotspots on chromosome 1.

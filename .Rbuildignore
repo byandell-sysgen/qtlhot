@@ -8,3 +8,5 @@ qtlhot.Rproj
 vignettes/*.html
 qtlhot.Rcheck/
 inst/doc/*.html
+^.*\.Rproj$
+^\.Rproj\.user$

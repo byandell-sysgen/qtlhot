@@ -56,11 +56,11 @@
 #'                            res.var = 1,
 #'                            n.phe = 1000,
 #'                            init.seed = 12345)
-#' pt <- scanone(ncross1, method = "hk", n.perm = 1000)
+#' pt.scanone <- scanone(ncross1, method = "hk", n.perm = 1000)
 #' alphas <- seq(0.01, 0.10, by=0.01)
-#' lod.thrs <- summary(pt, alphas)
-#' \dontrun{
-#' ## This takes awhile, so we save the object.
+#' lod.thrs <- summary(pt.scanone, alphas)
+#' # This takes awhile, so we save the object. But it does not work with R.check
+#' # data(hotperm1) 
 #' hotperm1 <- hotperm(cross = cross1,
 #'                     n.quant = 300,
 #'                     n.perm = 100,
@@ -69,7 +69,6 @@
 #'                     drop.lod = 1.5,
 #'                     verbose = FALSE)
 #' save(hotperm1, file = "hotperm1.RData", compress = TRUE)
-#' }
 #' summary(hotperm1)
 #' 
 #' @export

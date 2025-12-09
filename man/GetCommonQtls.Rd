@@ -41,7 +41,14 @@ higher than LOD threshold and within set distance of each other
 }
 \examples{
 
-data(CMSTCross)
+# data(CMSTCross) should work here but fails on R.check
+set.seed(987654321)
+CMSTCross <- SimCrossCausal(n.ind = 100, 
+  len = rep(100, 3), n.mar = 101,
+  beta = rep(0.5, 2), add.eff = 1, dom.eff = 0, 
+  sig2.1 = 0.4, sig2.2 = 0.1, eq.spacing = FALSE, 
+  cross.type = "bc", normalize = TRUE)
+CMSTCross <- calc.genoprob(CMSTCross, step = 1)
 commqtls <- GetCommonQtls(CMSTCross, 
                           pheno1 = "y1", 
                           pheno2 = "y3",
