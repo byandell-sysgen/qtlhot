@@ -65,6 +65,9 @@ R CMD INSTALL qtlhot_1.2.3.tar.gz
 - Use `browser()` within R scripts to set breakpoints.
 - Leverage `traceback()` to debug errors.
 
+### Modifying Code
+- Do not alter NAMESPACE, DESCRIPTION or *.Rd files manually; use Roxygen2 comments and `devtools::document()` instead.
+
 ### Running Package Checks
 
 After a round of development, follow these steps to run package checks:

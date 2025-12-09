@@ -1,3 +1,5 @@
+#' @importFrom stats cor runif
+#' @importFrom qtl calc.genoprob find.marker pull.geno sim.cross
 mySimulations <- function(
   nSim,
   model,
@@ -61,8 +63,8 @@ mySimulations <- function(
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
       if(!is.na(cq[1])){
         print(k)
-        cor12[k,] <- cor(Cross$pheno[,1],Cross$pheno[,2])
-        aux <- try(cmstTests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
+        cor12[k,] <- stats::cor(Cross$pheno[,1],Cross$pheno[,2])
+        aux <- try(CMSTtests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
           , , , , cross.type),silent=TRUE)
         if(!inherits(aux, "try-error")) {
           R2s[k,] <- aux$R2
@@ -81,7 +83,7 @@ mySimulations <- function(
         LL <- qtl::pull.geno(Cross)[,cit.mar]
         GG <- Cross$pheno[,1]
         TT <- Cross$pheno[,2]
-        aux2 <- try(citTests(LL, GG, TT),silent=TRUE)
+        aux2 <- try(CitTests(LL, GG, TT),silent=TRUE)
         if(!inherits(aux2, "try-error"))
           pval.cit[k,] <- aux2
         k <- k + 1
@@ -106,8 +108,8 @@ mySimulations <- function(
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
       if(!is.na(cq[1])){
         print(k)
-        cor12[k,] <- cor(Cross$pheno[,1],Cross$pheno[,2])
-        aux <- try(cmstTests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
+        cor12[k,] <- stats::cor(Cross$pheno[,1],Cross$pheno[,2])
+        aux <- try(CMSTtests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
           , , , , cross.type),silent=TRUE)
         if(!inherits(aux, "try-error")) {
           R2s[k,] <- aux$R2
@@ -126,7 +128,7 @@ mySimulations <- function(
         LL <- qtl::pull.geno(Cross)[,cit.mar]
         GG <- Cross$pheno[,1]
         TT <- Cross$pheno[,2]
-        aux2 <- try(citTests(LL, GG, TT),silent=TRUE)
+        aux2 <- try(CitTests(LL, GG, TT),silent=TRUE)
         if(!inherits(aux2, "try-error"))
           pval.cit[k,] <- aux2
         k <- k + 1
@@ -150,8 +152,8 @@ mySimulations <- function(
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
       if(!is.na(cq[1])){
         print(k)
-        cor12[k,] <- cor(Cross$pheno[,1],Cross$pheno[,2])
-        aux <- try(cmstTests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
+        cor12[k,] <- stats::cor(Cross$pheno[,1],Cross$pheno[,2])
+        aux <- try(CMSTtests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
           , , , , cross.type),silent=TRUE)
         if(!inherits(aux, "try-error")) {
           R2s[k,] <- aux$R2
@@ -170,7 +172,7 @@ mySimulations <- function(
         LL <- qtl::pull.geno(Cross)[,cit.mar]
         GG <- Cross$pheno[,1]
         TT <- Cross$pheno[,2]
-        aux2 <- try(citTests(LL, GG, TT),silent=TRUE)
+        aux2 <- try(CitTests(LL, GG, TT),silent=TRUE)
         if(!inherits(aux2, "try-error"))
           pval.cit[k,] <- aux2
         k <- k + 1
@@ -193,8 +195,8 @@ mySimulations <- function(
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
       if(!is.na(cq[1])){
         print(k)
-        cor12[k,] <- cor(Cross$pheno[,1],Cross$pheno[,2])
-        aux <- try(cmstTests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
+        cor12[k,] <- stats::cor(Cross$pheno[,1],Cross$pheno[,2])
+        aux <- try(CMSTtests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
           , , , , cross.type),silent=TRUE)
         if(!inherits(aux, "try-error")) {
           R2s[k,] <- aux$R2
@@ -213,7 +215,7 @@ mySimulations <- function(
         LL <- qtl::pull.geno(Cross)[,cit.mar]
         GG <- Cross$pheno[,1]
         TT <- Cross$pheno[,2]
-        aux2 <- try(citTests(LL, GG, TT),silent=TRUE)
+        aux2 <- try(CitTests(LL, GG, TT),silent=TRUE)
         if(!inherits(aux2, "try-error"))
           pval.cit[k,] <- aux2
         k <- k + 1
@@ -240,8 +242,8 @@ mySimulations <- function(
       cq <- get.common.qtls(Cross, "y1", "y2", thr, peak.dist)
       if(!is.na(cq[1])){
         print(k)
-        cor12[k,] <- cor(Cross$pheno[,1],Cross$pheno[,2])
-        aux <- try(cmstTests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
+        cor12[k,] <- stats::cor(Cross$pheno[,1],Cross$pheno[,2])
+        aux <- try(CMSTtests(Cross, "y1", "y2", Q.chr=cq[1,2], Q.pos=cq[1,3], 
           , , , , cross.type),silent=TRUE)
         if(!inherits(aux, "try-error")) {
           R2s[k,] <- aux$R2
@@ -260,7 +262,7 @@ mySimulations <- function(
         LL <- qtl::pull.geno(Cross)[,cit.mar]
         GG <- Cross$pheno[,1]
         TT <- Cross$pheno[,2]
-        aux2 <- try(citTests(LL, GG, TT),silent=TRUE)
+        aux2 <- try(CitTests(LL, GG, TT),silent=TRUE)
         if(!inherits(aux2, "try-error"))
           pval.cit[k,] <- aux2
         k <- k + 1
