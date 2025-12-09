@@ -23,8 +23,7 @@ correspond to phenotypes in `cross` object}
 
 \item{cand.reg}{data frame with candidate regulator; see value section below}
 
-\item{lod.thr}{LOD threshold; restrict to intervals above this value if not
-`NULL`}
+\item{lod.thr}{LOD threshold for identifying candidate regions.}
 }
 \value{
 `GetCoMappingTraits` returns a list with each element being the

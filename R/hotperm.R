@@ -31,6 +31,8 @@
 #' \code{\link[qtl]{scanone}}
 #' @param intcovar interactive covariates as vector or matrix; see
 #' \code{\link[qtl]{scanone}}
+#' @param level Significance level for hotspot detection.
+#' @param lod.thr LOD threshold for filtering scores.
 #' @param \dots arguments passed along to \code{scanone}
 #' @author Elias Chaibub Neto and Brian S Yandell
 #' @keywords utilities
@@ -85,11 +87,9 @@ hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1
   n.quant <- min(n.quant, n.phe)
 
   tmp <- table(sapply(cross$pheno, class))
-  if(length(tmp) > 1 | names(tmp)[1] != "numeric")
+  if(length(tmp) > 1 || names(tmp)[1] != "numeric")
     stop("all phenotypes in cross object must be numeric")
   
-  s.quant <- seq(n.quant)
-  quants <- 1 - (s.quant - 1) / n.phe
   n.lod <- length(lod.thrs)
 
   max.N <- matrix(0, n.perm, n.lod)

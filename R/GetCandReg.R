@@ -31,8 +31,7 @@
 #' @param traits names of traits to examine as candidate regulators; names must
 #' correspond to phenotypes in `cross` object
 #' @param cand.reg data frame with candidate regulator; see value section below
-#' @param lod.thr LOD threshold; restrict to intervals above this value if not
-#' `NULL`
+#' @param lod.thr LOD threshold for identifying candidate regions.
 #' @return `GetCoMappingTraits` returns a list with each element being the
 #' names of co-mapping traits for a particular name in `traits`.
 #' `GetCandReg` returns a data frame while `GetCisCandReg` returns a

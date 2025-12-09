@@ -232,7 +232,7 @@ CombineTests <- function(comap, file)
   reg.nms <- names(comap)
   out <- NULL
   join.out <- list()
-  for (k in 1 : length(comap)) {
+  for (k in seq_along(comap)) {
     load(paste(file, reg.nms[k], "Rdata", sep="."))
     join.out[[k]] <- out
   }
@@ -243,8 +243,9 @@ CombineTests <- function(comap, file)
 #' @rdname FitAllTests
 JoinTestOutputs <- function(comap, tests, file = NULL)
 {
-  if(!is.null(file) & missing(tests))
+  if(!is.null(file) && missing(tests)) {
     tests <- CombineTests(comap, file)
+  }
   
   reg.nms <- names(comap)
   join.out <- tests[[1]]

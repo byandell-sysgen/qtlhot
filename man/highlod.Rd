@@ -56,14 +56,13 @@ matches behavior of \code{\link[qtl]{lodint}} when \code{FALSE} (default)}
 
 \item{window}{size of window for smoothing hotspot size}
 
-\item{probs}{probability levels for quantiles (should be > 0.5)}
+\item{probs}{Probability levels for quantiles.}
 
-\item{n.quant}{maximum of \code{s.quant}}
+\item{n.quant}{Maximum number of quantiles to compute.}
 
-\item{n.pheno}{number of phenotypes considered}
+\item{n.pheno}{Number of phenotypes considered.}
 
-\item{max.quantile}{return only quantiles of max LOD across genome if
-\code{TRUE}}
+\item{max.quantile}{Logical; if `TRUE`, returns only the maximum quantile values.}
 }
 \value{
 Data frame with \item{row}{row number in \code{\link[qtl]{scanone}}

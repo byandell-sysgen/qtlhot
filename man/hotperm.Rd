@@ -66,7 +66,9 @@ summary; default is 1, 2, 5, 10, \dots up to maximum recorded}
 \item{probs}{probability levels for quantiles (\code{1-probs} if all > 0.5);
 default is \code{alpha.levels}}
 
-\item{lod.thr}{restrict to values above this if not \code{NULL}}
+\item{level}{Significance level for hotspot detection.}
+
+\item{lod.thr}{LOD threshold for filtering scores.}
 }
 \description{
 This set of functions compute the permutation LOD thresholds for the NL-method
@@ -83,14 +85,31 @@ permutation significance (alpha levels).
 }
 \examples{
 
-example(include.hotspots)
-set.seed(123)
+ncross1 <- sim.null.cross(chr.len = rep(100, 4),
+                          n.mar = 51,
+                          n.ind = 100,
+                          type = "bc",
+                          n.phe = 1000,
+                          latent.eff = 3,
+                          res.var = 1,
+                          init.seed = 123457)
+cross1 <- include.hotspots(cross = ncross1,
+                           hchr = c(2, 3, 4),
+                           hpos = c(25, 75, 50),
+                           hsize = c(100, 50, 20),
+                           Q.eff = 2,
+                           latent.eff = 3,
+                           lod.range.1 = c(2.5, 2.5),
+                           lod.range.2 = c(5, 8),
+                           lod.range.3 = c(10, 15),
+                           res.var = 1,
+                           n.phe = 1000,
+                           init.seed = 12345)
 pt <- scanone(ncross1, method = "hk", n.perm = 1000)
 alphas <- seq(0.01, 0.10, by=0.01)
 lod.thrs <- summary(pt, alphas)
 \dontrun{
 ## This takes awhile, so we save the object.
-set.seed(12345)
 hotperm1 <- hotperm(cross = cross1,
                     n.quant = 300,
                     n.perm = 100,

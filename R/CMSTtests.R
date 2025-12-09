@@ -17,6 +17,9 @@
 #' @param method test method; see details
 #' @param penalty type of penalty; see details
 #' @param verbose verbose printout if `TRUE`
+#' @param highobj High LOD object used for CMST tests.
+#' @param cand.reg Candidate regions for QTL mapping.
+#' @param lod.thr LOD threshold for filtering significant regions.
 #' @seealso `CMSTCross`, `PrecTpFpMatrix`,
 #' `FitAllTests`
 #' @references Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,
@@ -72,7 +75,10 @@ CMSTtests <- function(cross,
                       intcov2 = NULL, 
                       method = c("par", "non.par", "joint", "all"),
                       penalty = c("bic", "aic", "both"),
-                      verbose = FALSE)
+                      verbose = FALSE,
+                      highobj = NULL,
+                      cand.reg = NULL,
+                      lod.thr = NULL)
 {
   if (!any(class(cross) == "cross")) 
     stop("Input should have class \"cross\".")

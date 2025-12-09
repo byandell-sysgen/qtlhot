@@ -19,7 +19,10 @@ CMSTtests(
   intcov2 = NULL,
   method = c("par", "non.par", "joint", "all"),
   penalty = c("bic", "aic", "both"),
-  verbose = FALSE
+  verbose = FALSE,
+  highobj = NULL,
+  cand.reg = NULL,
+  lod.thr = NULL
 )
 
 CMSTtestsList(
@@ -62,6 +65,12 @@ phenotype, respectively}
 \item{penalty}{type of penalty; see details}
 
 \item{verbose}{verbose printout if `TRUE`}
+
+\item{highobj}{High LOD object used for CMST tests.}
+
+\item{cand.reg}{Candidate regions for QTL mapping.}
+
+\item{lod.thr}{LOD threshold for filtering significant regions.}
 }
 \description{
 Performs 6 separate CMST tests (3 versions, 2 penalties).

@@ -193,7 +193,7 @@ qtlhot.phase1 <- function(dirpath, index = 0,
 
     n.perm <- ceiling(n.perm / n.split)
       
-    if(cross.index > 0 & nruns > 1) {
+    if(cross.index > 0 && nruns > 1) {
       ## Keep markers but re-simulate genotypes each time.
       mymap <- qtl::pull.map(cross)
       cross <- qtl::sim.cross(map = mymap, n.ind = n.ind, type = class(cross)[1])
@@ -254,7 +254,7 @@ qtlhot.phase2 <- function(dirpath, index = NULL, ...,
   index <- as.integer(index)
   if(is.na(index))
     parallel.error(3, 2, index)
-  if(index < 1 | index > n.split)
+  if(index < 1 || index > n.split)
     parallel.error(4, 2, index)
 
   if(big)
@@ -346,7 +346,7 @@ qtlhot.phase3 <- function(dirpath, index = NULL, ...,
   class(qh.out) <- c("hotperm", "list")
 
   i.perm <- seq(n.perm)
-  for(i in seq(length(filenames))) {
+  for(i in seq_along(filenames)) {
     load(file.path(dirpath, filenames[i]))
 
     ## Do any quality checking here.
