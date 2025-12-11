@@ -35,7 +35,6 @@
 #' @author Elias Chaibub Neto and Brian S Yandell
 #' @keywords utilities
 #' @examples
-#' 
 #' ncross1 <- sim.null.cross(chr.len = rep(100, 4),
 #'                           n.mar = 51,
 #'                           n.ind = 100,
@@ -59,8 +58,9 @@
 #' pt.scanone <- scanone(ncross1, method = "hk", n.perm = 1000)
 #' alphas <- seq(0.01, 0.10, by=0.01)
 #' lod.thrs <- summary(pt.scanone, alphas)
-#' # This takes awhile, so we save the object. But it does not work with R.check
-#' # data(hotperm1) 
+#' # This takes awhile, so we save the object.
+#' data(hotperm1) 
+#' \dontrun{
 #' hotperm1 <- hotperm(cross = cross1,
 #'                     n.quant = 300,
 #'                     n.perm = 100,
@@ -69,6 +69,7 @@
 #'                     drop.lod = 1.5,
 #'                     verbose = FALSE)
 #' save(hotperm1, file = "hotperm1.RData", compress = TRUE)
+#' }
 #' summary(hotperm1)
 #' 
 #' @export

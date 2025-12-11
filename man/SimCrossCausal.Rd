@@ -46,6 +46,7 @@ Creates cross with certain pattern of dependence across phenotypes.
 }
 \examples{
 
+\dontrun{
 set.seed(987654321)
 CMSTCross <- SimCrossCausal(n.ind = 100, 
   len = rep(100, 3), n.mar = 101,
@@ -53,9 +54,9 @@ CMSTCross <- SimCrossCausal(n.ind = 100,
   sig2.1 = 0.4, sig2.2 = 0.1, eq.spacing = FALSE, 
   cross.type = "bc", normalize = TRUE)
 CMSTCross <- calc.genoprob(CMSTCross, step = 1)
-\dontrun{
 save(CMSTCross, file = "CMSTCross.RData", compress = TRUE)
 }
+class(CMSTCross)
 
 }
 \references{

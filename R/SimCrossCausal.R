@@ -19,6 +19,7 @@
 #' @keywords utilities
 #' @examples
 #' 
+#' \dontrun{
 #' set.seed(987654321)
 #' CMSTCross <- SimCrossCausal(n.ind = 100, 
 #'   len = rep(100, 3), n.mar = 101,
@@ -26,9 +27,9 @@
 #'   sig2.1 = 0.4, sig2.2 = 0.1, eq.spacing = FALSE, 
 #'   cross.type = "bc", normalize = TRUE)
 #' CMSTCross <- calc.genoprob(CMSTCross, step = 1)
-#' \dontrun{
 #' save(CMSTCross, file = "CMSTCross.RData", compress = TRUE)
 #' }
+#' class(CMSTCross)
 #' 
 #' @export
 #' @importFrom qtl calc.genoprob find.marker pull.geno sim.cross sim.map
