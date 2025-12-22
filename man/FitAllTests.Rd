@@ -76,7 +76,7 @@ genes, and to cis genes only. Simulations suggest only non-parametric tests
 need to be adjusted using Benjamini-Hochberg via `p.adjust.np()`.
 }
 \examples{
-
+\dontrun{
 example(GetCandReg)
 ## Suppose y1 is causal with targets y2 and y3.
 targets <- list(y1 = c("y2","y3"))
@@ -94,7 +94,7 @@ tests <- JoinTestOutputs(comap.targets, tests)
 PrecTpFpMatrix(alpha = seq(0.01, 0.10, by = 0.01),
   val.targets = targets, all.orfs = CMSThigh$names, tests = tests,
   cand.reg = cand.reg, cis.cand.reg = cis.cand.reg)
-
+}
 }
 \seealso{
 \code{\link[stats]{p.adjust}}

@@ -40,7 +40,9 @@ Perform joint QTL mapping for phenotypes with marginal LOD peak positions
 higher than LOD threshold and within set distance of each other
 }
 \examples{
-
+\dontrun{
+# Create CMSTCross object
+example(SimCrossCausal)
 # data(CMSTCross) loaded lazily
 commqtls <- GetCommonQtls(CMSTCross, 
                           pheno1 = "y1", 
@@ -52,7 +54,7 @@ commqtls <- GetCommonQtls(CMSTCross,
                           intcov1 = NULL, 
                           intcov2 = NULL)
 commqtls
-
+}
 }
 \references{
 Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,

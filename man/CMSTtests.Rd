@@ -79,7 +79,9 @@ Performs 6 separate CMST tests (3 versions, 2 penalties).
 Explain method and penalty here.
 }
 \examples{
-
+\dontrun{
+# Create CMSTCross object
+example(SimCrossCausal)
 nms <- names(CMSTCross$pheno)
 out1 <- CMSTtests(CMSTCross, 
                   pheno1 = nms[1], 
@@ -109,7 +111,7 @@ out2 <- CMSTtests(CMSTCross,
                   method = "par",
                   penalty = "bic")
 out2
-
+}
 }
 \references{
 Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,

@@ -20,7 +20,9 @@
 #' Genetics (in review).
 #' @keywords utilities
 #' @examples
-#' 
+#' \dontrun{
+#' # Create CMSTCross object
+#' example(SimCrossCausal)
 #' # data(CMSTCross) loaded lazily
 #' commqtls <- GetCommonQtls(CMSTCross, 
 #'                           pheno1 = "y1", 
@@ -32,7 +34,7 @@
 #'                           intcov1 = NULL, 
 #'                           intcov2 = NULL)
 #' commqtls
-#' 
+#' }
 #' @export
 GetCommonQtls <- function(cross, 
                           pheno1, 

@@ -55,9 +55,8 @@ CMSTCross <- SimCrossCausal(n.ind = 100,
   cross.type = "bc", normalize = TRUE)
 CMSTCross <- calc.genoprob(CMSTCross, step = 1)
 save(CMSTCross, file = "CMSTCross.RData", compress = TRUE)
-}
 class(CMSTCross)
-
+}
 }
 \references{
 Chaibub Neto E, Broman AT, Keller MP, Attie AD, Zhang B, Zhu J,

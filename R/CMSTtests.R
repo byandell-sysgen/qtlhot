@@ -27,7 +27,9 @@
 #' Genetics (in review).
 #' @keywords utilities
 #' @examples
-#' 
+#' \dontrun{
+#' # Create CMSTCross object
+#' example(SimCrossCausal)
 #' nms <- names(CMSTCross$pheno)
 #' out1 <- CMSTtests(CMSTCross, 
 #'                   pheno1 = nms[1], 
@@ -57,7 +59,7 @@
 #'                   method = "par",
 #'                   penalty = "bic")
 #' out2
-#' 
+#' }
 #' @export
 #' @importFrom corpcor is.positive.definite make.positive.definite
 #' @importFrom mnormt pmnorm

@@ -51,7 +51,9 @@
 #' @references Manichaikul et al. (2006) Genetics
 #' @keywords utilities
 #' @examples
-#' 
+#' \dontrun{
+#' # Create CMSTCross object
+#' example(SimCrossCausal)
 #' # data(CMSTCross) loaded lazily
 #' CMSTscan <- scanone(CMSTCross, pheno.col = 1:3, method = "hk")
 #' CMSThigh <- highlod(CMSTscan)
@@ -62,7 +64,7 @@
 #' cand.reg <- GetCandReg(CMSThigh, annot, traits)
 #' cis.cand.reg <- GetCisCandReg(CMSThigh, cand.reg)
 #' comap.targets <- GetCoMappingTraits(CMSThigh, cand.reg)
-#' 
+#' }
 #' @export
 GetCandReg <- function(highobj, annot, traits)
 {

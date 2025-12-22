@@ -28,9 +28,8 @@
 #'   cross.type = "bc", normalize = TRUE)
 #' CMSTCross <- calc.genoprob(CMSTCross, step = 1)
 #' save(CMSTCross, file = "CMSTCross.RData", compress = TRUE)
-#' }
 #' class(CMSTCross)
-#' 
+#' }
 #' @export
 #' @importFrom qtl calc.genoprob find.marker pull.geno sim.cross sim.map
 SimCrossCausal <- function(n.ind, len, n.mar, beta, add.eff, dom.eff, 

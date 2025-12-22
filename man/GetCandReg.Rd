@@ -64,7 +64,9 @@ that contain results of `FitAllTests`. It needs to be rewritten
 to save space.
 }
 \examples{
-
+\dontrun{
+# Create CMSTCross object
+example(SimCrossCausal)
 # data(CMSTCross) loaded lazily
 CMSTscan <- scanone(CMSTCross, pheno.col = 1:3, method = "hk")
 CMSThigh <- highlod(CMSTscan)
@@ -75,7 +77,7 @@ annot$cM.pos <- annot$Mb.pos
 cand.reg <- GetCandReg(CMSThigh, annot, traits)
 cis.cand.reg <- GetCisCandReg(CMSThigh, cand.reg)
 comap.targets <- GetCoMappingTraits(CMSThigh, cand.reg)
-
+}
 }
 \references{
 Manichaikul et al. (2006) Genetics

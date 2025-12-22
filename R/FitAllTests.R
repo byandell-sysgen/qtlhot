@@ -48,7 +48,7 @@
 #' @seealso \code{\link[stats]{p.adjust}}
 #' @keywords utilities
 #' @examples
-#' 
+#' \dontrun{
 #' example(GetCandReg)
 #' ## Suppose y1 is causal with targets y2 and y3.
 #' targets <- list(y1 = c("y2","y3"))
@@ -66,7 +66,7 @@
 #' PrecTpFpMatrix(alpha = seq(0.01, 0.10, by = 0.01),
 #'   val.targets = targets, all.orfs = CMSThigh$names, tests = tests,
 #'   cand.reg = cand.reg, cis.cand.reg = cis.cand.reg)
-#' 
+#' }
 #' @export
 FitAllTests <- function(cross, pheno1, pheno2, Q.chr, Q.pos, verbose = TRUE)
 {

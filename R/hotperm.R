@@ -59,7 +59,6 @@
 #' alphas <- seq(0.01, 0.10, by=0.01)
 #' lod.thrs <- summary(pt.scanone, alphas)
 #' # This takes awhile, so we save the object.
-#' data(hotperm1) 
 #' \dontrun{
 #' hotperm1 <- hotperm(cross = cross1,
 #'                     n.quant = 300,
@@ -69,9 +68,9 @@
 #'                     drop.lod = 1.5,
 #'                     verbose = FALSE)
 #' save(hotperm1, file = "hotperm1.RData", compress = TRUE)
-#' }
+#' # data(hotperm1) 
 #' summary(hotperm1)
-#' 
+#' }
 #' @export
 #' @importFrom qtl nind nphe scanone 
 hotperm <- function(cross, n.quant, n.perm, lod.thrs, alpha.levels, drop.lod = 1.5,
