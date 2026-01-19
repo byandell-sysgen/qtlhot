@@ -1,6 +1,6 @@
 Package: qtlhot
-Version: 1.2.9
-Date: 2025-12-23
+Version: 1.2.10
+Date: 2026-01-19
 Authors@R: c(person(given = c("Elias", "Chaibub"),
                         family = "Neto",
                         role = "aut",
@@ -23,7 +23,7 @@ Description: Functions to infer co-mapping trait hotspots and causal models.
   <doi:10.1534/genetics.112.147124>.
 Maintainer: Brian S. Yandell <brian.yandell@wisc.edu>
 Depends: stats,qtl,mnormt,utils,corpcor,broman,
-  R (>= 2.10)
+  R (>= 3.5.0)
 LazyLoad: true
 LazyData: true
 License: GPL (>= 2)
